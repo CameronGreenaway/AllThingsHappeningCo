@@ -1,0 +1,117 @@
+export const SITE = {
+  name: "All Things Happening Co",
+  tagline: "Pittsburgh's Premier Event Rental Company",
+  description: "Providing seamless and memorable event experiences — one rental at a time.",
+  instagram: "@allthingshappeningco",
+  instagramUrl: "https://www.instagram.com/allthingshappeningco",
+  email: "contact@allthingshappening.com",
+  serviceArea: "Pittsburgh, PA · 50-Mile Radius",
+  bookingLeadTime: "4 Weeks Minimum",
+  deposit: "25% Deposit Required",
+  year: "2026",
+};
+
+export const NAV_LINKS = [
+  { label: "Rentals", to: "/rentals" },
+  { label: "Gallery", to: "/gallery" },
+  { label: "Partners", to: "/partners" },
+  { label: "About", to: "/about" },
+  { label: "FAQ", to: "/faq" },
+  { label: "Contact", to: "/contact" },
+];
+
+export const FOOTER_SERVICES = [
+  { label: "Audio Guest Book", to: "/rentals" },
+  { label: "Tattoo Machine", to: "/rentals" },
+  { label: "Drapery Backdrops", to: "/rentals" },
+  { label: "Baby Shower Station", to: "/rentals" },
+  { label: "Build-A-Bear Station", to: "/rentals" },
+  { label: "Custom Accessories", to: "/rentals" },
+];
+
+export const FOOTER_COMPANY = [
+  { label: "About Us", to: "/about" },
+  { label: "Gallery", to: "/gallery" },
+  { label: "Partners", to: "/partners" },
+  { label: "FAQ", to: "/faq" },
+  { label: "Contact", to: "/contact" },
+];
+
+export const FOOTER_POLICIES = [
+  { label: "Booking Policy", to: "/policies" },
+  { label: "Cancellation Policy", to: "/policies" },
+  { label: "Damage Liability", to: "/policies" },
+  { label: "Delivery Info", to: "/policies" },
+  { label: "Privacy Policy", to: "/policies" },
+];
+
+export const VALUES = [
+  "Full Customization",
+  "Unique Experiences",
+  "Seamless Planning",
+  "Eco-Friendly",
+  "Trusted Partners",
+  "50-Mile Radius",
+];
+
+export const HOW_IT_WORKS = [
+  {
+    n: "01",
+    title: "Browse & Customize",
+    desc: "Explore our full rental catalog and build your perfect setup. Customize colors, names, and personal details across every item.",
+  },
+  {
+    n: "02",
+    title: "Book & Confirm",
+    desc: "Select your date, review your quote, and secure your booking with a 25% deposit. We confirm availability within 24 hours.",
+  },
+  {
+    n: "03",
+    title: "Celebrate",
+    desc: "We arrive 1–2 hours early, set everything up with care, and handle full takedown after. You focus on your guests.",
+  },
+];
+
+export const TESTIMONIALS = [
+  {
+    quote: "Every single detail was perfect. The phone booth was the hit of our reception — guests couldn't stop using it, and we have the most beautiful audio memories from our wedding day.",
+    author: "Sarah M.",
+    event: "Wedding · September 2025",
+  },
+  {
+    quote: "The tattoo vending machine was such a unique touch for our graduation party. Everyone was completely obsessed. Setup and service were absolutely flawless.",
+    author: "Jordan T.",
+    event: "Graduation · June 2025",
+  },
+  {
+    quote: "They made everything so easy. One vendor, one quote, and everything arrived on time and looked stunning. I cannot recommend All Things Happening Co enough.",
+    author: "Amanda R.",
+    event: "Baby Shower · August 2025",
+  },
+];
+
+export const EVENT_TYPES = [
+  "Wedding",
+  "Baby Shower",
+  "Graduation",
+  "Birthday Party",
+  "Corporate Event",
+  "Holiday Party",
+  "Bridal Shower",
+  "Gender Reveal",
+  "Anniversary",
+  "Other",
+];
+
+export const INQUIRY_TYPES = [
+  { value: "booking", label: "Booking Request", prefix: "[BOOKING]" },
+  { value: "question", label: "General Question", prefix: "[QUESTION]" },
+  { value: "support", label: "Support", prefix: "[SUPPORT]" },
+  { value: "review", label: "Leave a Review", prefix: "[REVIEW]" },
+];
+
+export const EMAILJS_CONFIG = {
+  serviceId: "YOUR_EMAILJS_SERVICE_ID",
+  templateId: "YOUR_EMAILJS_TEMPLATE_ID",
+  publicKey: "YOUR_EMAILJS_PUBLIC_KEY",
+};

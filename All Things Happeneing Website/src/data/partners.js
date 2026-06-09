@@ -1,0 +1,26 @@
+export const PARTNERS = [
+  {
+    id: "tow-toast",
+    name: "Tow & Toast",
+    tagline: "Mobile Bar Experience",
+    badge: "Featured Partner",
+    desc: "A beautifully converted horse trailer mobile bar bringing craft cocktails, premium pop-up bar service, and unforgettable atmosphere directly to your event. Completely self-contained and available throughout the Pittsburgh area.",
+    url: "towandtoast.com",
+    href: "https://www.towandtoast.com",
+    instagram: null,
+    imageLabel: "Tow & Toast Mobile Bar Trailer",
+    services: ["Mobile Bar", "Craft Cocktails", "Pop-Up Bar Service", "Event Bartending"],
+  },
+  {
+    id: "pgh360photo",
+    name: "pgh360photo",
+    tagline: "360° & DSLR Photo Booths",
+    badge: "Featured Partner",
+    desc: "Pittsburgh's premier photo booth experience — from dynamic 360° slow-motion video booths to classic DSLR portrait setups with instant printing. A perfect complement to any All Things Happening Co package.",
+    url: "@pgh360photo",
+    href: "https://www.instagram.com/pgh360photo",
+    instagram: "@pgh360photo",
+    imageLabel: "360° Photo Booth at Event",
+    services: ["360° Video Booth", "DSLR Photo Booth", "Instant Printing", "Custom Overlays"],
+  },
+];
