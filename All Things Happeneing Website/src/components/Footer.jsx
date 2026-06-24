@@ -47,7 +47,7 @@ export default function Footer() {
             <div className="f-col-head" style={{ marginTop: '1.5rem' }}>Contact</div>
             <ul className="f-links">
               <li><a href={`mailto:${SITE.email}`}>{SITE.email}</a></li>
-              <li><a href={SITE.instagramUrl} target="_blank" rel="noreferrer">{SITE.instagram}</a></li>
+              <li><a href={SITE.instagramUrl} target="_blank" rel="noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem' }}><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" fill="white"></path><circle cx="17.5" cy="6.5" r="1.5" fill="white"></circle></svg>{SITE.instagram}</a></li>
             </ul>
           </div>
         </div>

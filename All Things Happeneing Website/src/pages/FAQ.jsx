@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import AnimateIn from '../components/AnimateIn';
+import { SITE } from '../data/site';
 
 const FAQ_GROUPS = [
   {
@@ -78,7 +79,7 @@ const FAQ_GROUPS = [
       },
       {
         q: 'Can I see photos of previous setups?',
-        a: 'Yes — visit our Gallery page to browse real event photos. You can also follow us on Instagram @allthingshappeningco for our most recent work.',
+        a: <>Yes — visit our Gallery page to browse real event photos. You can also follow us on <a href={SITE.instagramUrl} target="_blank" rel="noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.3rem', color: 'inherit', textDecoration: 'underline' }}><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" fill="white"></path><circle cx="17.5" cy="6.5" r="1.5" fill="white"></circle></svg>{SITE.instagram}</a> for our most recent work.</>,
       },
       {
         q: 'Do you offer items not listed on your Rentals page?',
