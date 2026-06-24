@@ -379,25 +379,7 @@ export default function Contact() {
             <p className="sec-lead">Browse available dates before submitting your inquiry. Booked dates are marked — all others are open.</p>
           </AnimateIn>
           <AnimateIn delay={80}>
-            <div className="calendar-embed">
-              {/*
-                ══════════════════════════════════════════════════════════
-                REPLACE THIS BLOCK WITH YOUR GOOGLE CALENDAR EMBED:
-                1. Google Calendar → your booking calendar → ⋮ → Settings
-                2. Access permissions → Make available to public ✓
-                3. Integrate calendar → copy the Embed code (<iframe>)
-                4. Paste the <iframe> here, add: width="100%" style="border:0"
-                ══════════════════════════════════════════════════════════
-              */}
-              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--sage)" strokeWidth="1.2">
-                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-                <line x1="16" y1="2" x2="16" y2="6"/>
-                <line x1="8" y1="2" x2="8" y2="6"/>
-                <line x1="3" y1="10" x2="21" y2="10"/>
-              </svg>
-              <div className="calendar-embed-note">Google Calendar — Coming Soon</div>
-              <p>Once configured, your live availability calendar will appear here. Follow the setup instructions in Contact.jsx to connect your Google Calendar.</p>
-            </div>
+            <iframe src="https://calendar.google.com/calendar/embed?src=allthingshappeningco%40gmail.com" style={{ width: '100%', border: '0', height: '600px' }} frameBorder="0" scrolling="no"></iframe>
           </AnimateIn>
         </div>
       </section>
