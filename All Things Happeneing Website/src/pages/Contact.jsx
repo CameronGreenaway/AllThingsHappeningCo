@@ -279,32 +279,6 @@ export default function Contact() {
                           />
                         </div>
                         <div className="form-group">
-                          <label className="form-label">Event Start Time *</label>
-                          <input
-                            className="form-input"
-                            type="time"
-                            required
-                            value={form.eventStartTime}
-                            onChange={set('eventStartTime')}
-                          />
-                        </div>
-                      </div>
-
-                      <div className="form-row">
-                        <div className="form-group">
-                          <label className="form-label">Event End Time *</label>
-                          <input
-                            className="form-input"
-                            type="time"
-                            required
-                            value={form.eventEndTime}
-                            onChange={set('eventEndTime')}
-                          />
-                        </div>
-                      </div>
-
-                      <div className="form-row">
-                        <div className="form-group">
                           <label className="form-label">Event Type *</label>
                           <div className="form-select-wrap">
                             <select
@@ -318,6 +292,28 @@ export default function Contact() {
                             </select>
                           </div>
                         </div>
+                      </div>
+
+                      <div className="form-group">
+                        <label className="form-label">Event Start Time *</label>
+                        <input
+                          className="form-input"
+                          type="time"
+                          required
+                          value={form.eventStartTime}
+                          onChange={set('eventStartTime')}
+                        />
+                      </div>
+
+                      <div className="form-group">
+                        <label className="form-label">Event End Time *</label>
+                        <input
+                          className="form-input"
+                          type="time"
+                          required
+                          value={form.eventEndTime}
+                          onChange={set('eventEndTime')}
+                        />
                       </div>
 
                       <div className="form-group">
