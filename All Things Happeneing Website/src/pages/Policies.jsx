@@ -8,7 +8,7 @@ const POLICIES = [
     body: (
       <>
         <p>All bookings require a <strong>25% non-refundable deposit</strong> of the total order to secure your date. The remaining balance is due prior to the event date as outlined in your booking agreement.</p>
-        <p>We require a minimum of <strong>14 days advance notice</strong> for all bookings. For peak season dates (June–October), we strongly recommend booking 2–3 months in advance.</p>
+        <p>We require a minimum of <strong>14 days advance notice</strong> for all bookings. For peak season dates (June–October), we strongly recommend booking 1–2 months in advance.</p>
         <p>A booking is not confirmed until the deposit is received and a booking confirmation is sent via email. Inquiries and quotes do not hold dates.</p>
         <ul>
           <li>Deposits are accepted via credit card, PayPal, or Venmo</li>
@@ -26,9 +26,9 @@ const POLICIES = [
       <>
         <p>We understand that plans change. Our cancellation policy is as follows:</p>
         <ul>
-          <li><strong>48+ hours before the event:</strong> Full deposit is returned</li>
-          <li><strong>Less than 48 hours before the event:</strong> Deposit is forfeited</li>
-          <li><strong>Day-of cancellation:</strong> Full balance is due</li>
+          <li><strong>48 hours post booking:</strong> Full deposit is returned</li>
+          <li><strong>After 48 hours of booking the event:</strong> Deposit is forfeited</li>
+          <li><strong>Day of cancellation:</strong> Full balance for all custom design is due</li>
         </ul>
         <p>Date changes are treated as a cancellation and rebooking, subject to availability. If your requested new date is available, your deposit may be applied to the new booking at our discretion.</p>
         <p>We recommend event insurance for added protection against unforeseen circumstances. All Things Happening Co is not responsible for losses due to weather, venue issues, or other external factors.</p>
