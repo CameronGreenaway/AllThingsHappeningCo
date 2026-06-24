@@ -10,11 +10,9 @@ const GALLERY_ITEMS = [
   { id: 4, label: "Custom Mirror Display — Bridal Shower", layout: "", filter: "weddings", image: "/images/custom1.JPG" },
   { id: 5, label: "Baby Shower Onesie Station Full Setup", layout: "wide", filter: "baby-showers", image: "/images/phone2.JPG" },
   { id: 6, label: "Build-A-Bear Station — Kids Birthday", layout: "", filter: "birthdays", image: "/images/phone3.JPG" },
-  { id: 7, label: "Charcuterie Cart — Corporate Event", layout: "", filter: "corporate", image: "/images/phone5.JPG" },
   { id: 8, label: "Custom Linen Signage — Wedding Reception", layout: "tall", filter: "weddings", image: "/images/sign1.JPG" },
   { id: 9, label: "Phone Booth Detail Shot — Baby Shower", layout: "", filter: "baby-showers", image: "/images/phone6.JPG" },
   { id: 10, label: "Tattoo Machine Close-Up — Birthday Party", layout: "", filter: "birthdays", image: "/images/phone7.JPG" },
-  { id: 11, label: "Table & Prop Setup — Corporate Event", layout: "wide", filter: "corporate", image: "/images/backdrop2.JPG" },
   { id: 12, label: "Drapery Backdrop — Graduation Celebration", layout: "", filter: "graduations", image: "/images/backdrop3.JPG" },
   { id: 13, label: "Custom Cups & Napkins Flat Lay — Wedding", layout: "", filter: "weddings", image: "/images/custom2.JPG" },
   { id: 14, label: "Phone Booth — Birthday Party Setup", layout: "", filter: "birthdays", image: "/images/sign2.JPG" },
@@ -28,7 +26,6 @@ const FILTERS = [
   { id: "baby-showers", label: "Baby Showers" },
   { id: "birthdays", label: "Birthdays" },
   { id: "graduations", label: "Graduations" },
-  { id: "corporate", label: "Corporate" },
 ];
 
 export default function Gallery() {
