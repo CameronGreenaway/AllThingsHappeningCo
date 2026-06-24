@@ -10,7 +10,7 @@
      Dashboard → Email Templates → Create New Template
      Subject line: {{subject_prefix}} — {{inquiry_type}} from {{from_name}}
      Body fields to include: from_name, from_email, phone, event_date,
-       event_start_time, event_type, guest_count, items, message
+       event_start_time, event_end_time, event_type, guest_count, items, message
      Reply-To: {{from_email}}
      Copy the Template ID
   4. Get Public Key:
@@ -50,6 +50,7 @@ const INITIAL_FORM = {
   phone: '',
   eventDate: '',
   eventStartTime: '',
+  eventEndTime: '',
   eventType: '',
   guestCount: '',
   items: [],
@@ -88,6 +89,7 @@ export default function Contact() {
       phone: form.phone || 'Not provided',
       event_date: form.eventDate || 'N/A',
       event_start_time: form.eventStartTime || 'N/A',
+      event_end_time: form.eventEndTime || 'N/A',
       event_type: form.eventType || 'N/A',
       guest_count: form.guestCount || 'Not specified',
       items: form.items.length ? form.items.join(', ') : 'None specified',
@@ -284,6 +286,19 @@ export default function Contact() {
                             required
                             value={form.eventStartTime}
                             onChange={set('eventStartTime')}
+                          />
+                        </div>
+                      </div>
+
+                      <div className="form-row">
+                        <div className="form-group">
+                          <label className="form-label">Event End Time *</label>
+                          <input
+                            className="form-input"
+                            type="time"
+                            required
+                            value={form.eventEndTime}
+                            onChange={set('eventEndTime')}
                           />
                         </div>
                       </div>
