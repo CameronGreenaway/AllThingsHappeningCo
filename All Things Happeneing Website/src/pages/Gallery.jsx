@@ -26,6 +26,7 @@ const FILTERS = [
   { id: "baby-showers", label: "Baby Showers" },
   { id: "birthdays", label: "Birthdays" },
   { id: "graduations", label: "Graduations" },
+  { id: "corporate", label: "Corporate" },
 ];
 
 export default function Gallery() {
