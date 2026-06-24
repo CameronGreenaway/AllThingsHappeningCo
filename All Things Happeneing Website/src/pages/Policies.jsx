@@ -28,7 +28,7 @@ const POLICIES = [
         <ul>
           <li><strong>48 hours post booking:</strong> Full deposit is returned</li>
           <li><strong>After 48 hours of booking the event:</strong> Deposit is forfeited</li>
-          <li><strong>Day of cancellation:</strong> Full balance for all custom design is due</li>
+          <li><strong>Day-of cancellation:</strong> Full balance is due</li>
         </ul>
         <p>Date changes are treated as a cancellation and rebooking, subject to availability. If your requested new date is available, your deposit may be applied to the new booking at our discretion.</p>
         <p>We recommend event insurance for added protection against unforeseen circumstances. All Things Happening Co is not responsible for losses due to weather, venue issues, or other external factors.</p>
