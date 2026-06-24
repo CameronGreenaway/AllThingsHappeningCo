@@ -4,9 +4,9 @@ export const SITE = {
   description: "Providing seamless and memorable event experiences — one rental at a time.",
   instagram: "@allthingshappeningco",
   instagramUrl: "https://www.instagram.com/allthingshappeningco",
-  email: "contact@allthingshappening.com",
+  email: "allthingshappeningco@gmail.com",
   serviceArea: "Pittsburgh, PA · 50-Mile Radius",
-  bookingLeadTime: "4 Weeks Minimum",
+  bookingLeadTime: "14 Days Minimum",
   deposit: "25% Deposit Required",
   year: "2026",
 };
@@ -111,7 +111,7 @@ export const INQUIRY_TYPES = [
 ];
 
 export const EMAILJS_CONFIG = {
-  serviceId: "YOUR_EMAILJS_SERVICE_ID",
-  templateId: "YOUR_EMAILJS_TEMPLATE_ID",
-  publicKey: "YOUR_EMAILJS_PUBLIC_KEY",
+  serviceId: "service_5v57762",
+  templateId: "template_jsikt5b",
+  publicKey: "q7fZTk83UsXfsiXZQ",
 };

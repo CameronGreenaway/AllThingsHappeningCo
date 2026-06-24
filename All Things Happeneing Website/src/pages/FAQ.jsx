@@ -8,7 +8,7 @@ const FAQ_GROUPS = [
     items: [
       {
         q: 'How far in advance do I need to book?',
-        a: 'We require a minimum of 4 weeks advance notice for all bookings. For peak summer and fall dates (June–October), we strongly recommend booking 2–3 months in advance to secure your preferred date.',
+        a: 'We require a minimum of 14 days advance notice for all bookings. For peak summer and fall dates (June–October), we strongly recommend booking 2–3 months in advance to secure your preferred date.',
       },
       {
         q: 'How much is the deposit to reserve my date?',

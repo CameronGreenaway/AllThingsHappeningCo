@@ -11,7 +11,10 @@ export default function Rentals() {
 
   const filtered = activeCategory === 'all'
     ? SERVICES
-    : SERVICES.filter(s => s.category === activeCategory);
+    : SERVICES.filter(s => {
+        const categories = s.categories || [s.category];
+        return categories.includes(activeCategory);
+      });
 
   return (
     <>
@@ -46,7 +49,11 @@ export default function Rentals() {
               <AnimateIn key={s.id} delay={i * 45}>
                 <div className="r-card" style={{ height: '100%' }}>
                   <div className="r-card-img">
-                    <ImagePlaceholder label={s.imageLabel} className="card" />
+                    {s.images?.length ? (
+                      <img src={s.images[0]} alt={s.name} className="card r-card-photo" style={s.mainImageStyle} />
+                    ) : (
+                      <ImagePlaceholder label={s.imageLabel} className="card" />
+                    )}
                   </div>
                   <div className="r-card-body">
                     <div className="r-tag">{s.tag}</div>
@@ -84,7 +91,7 @@ export default function Rentals() {
           'Delivery Included',
           'Setup & Takedown Included',
           '50-Mile Radius',
-          '4-Week Lead Time',
+          '14-Day Lead Time',
           'Custom Packages Available',
         ].map(t => (
           <div className="trust-item" key={t}>

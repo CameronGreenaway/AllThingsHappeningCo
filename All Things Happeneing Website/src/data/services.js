@@ -21,6 +21,16 @@ export const SERVICES = [
     startingFrom: "From $300",
     popular: true,
     imageLabel: "Audio Guest Book Phone Booth Setup",
+    images: [
+      "/images/phone1.JPG",
+      "/images/phone2.JPG",
+      "/images/phone3.JPG",
+      "/images/phone5.JPG",
+      "/images/phone6.JPG",
+      "/images/phone7.JPG",
+    ],
+    // Shift the card crop upward so the arched "TELEPHONE" top is in frame
+    mainImageStyle: { "--img-pos": "center 20%" },
     category: "entertainment",
   },
   {
@@ -47,7 +57,11 @@ export const SERVICES = [
     startingFrom: "From $350",
     popular: true,
     imageLabel: "Tattoo & Sticker Vending Machine at Event",
+    images: [
+      "/images/tattoo1.JPG",
+    ],
     category: "entertainment",
+    categories: ["entertainment", "kids"],
   },
   {
     id: "drapery",
@@ -67,6 +81,11 @@ export const SERVICES = [
     startingFrom: "From $125",
     popular: false,
     imageLabel: "Drapery Backdrop Display",
+    images: [
+      "/images/backdrop1.JPG",
+      "/images/backdrop2.JPG",
+      "/images/backdrop3.JPG",
+    ],
     category: "decor",
   },
   {
@@ -126,6 +145,12 @@ export const SERVICES = [
     startingFrom: "Inquire",
     popular: false,
     imageLabel: "Custom Linen Signage Display",
+    images: [
+      "/images/sign1.JPG",
+      "/images/sign2.JPG",
+    ],
+    // Zoom toward the sign and pan right so the faces on the left fall out of frame
+    mainImageStyle: { "--img-zoom": "1.5", "--img-origin": "68% 42%" },
     category: "custom",
   },
   {
@@ -211,6 +236,11 @@ export const SERVICES = [
     startingFrom: "Inquire",
     popular: false,
     imageLabel: "Custom Party Accessories Flat Lay",
+    images: [
+      "/images/custom1.JPG",
+      "/images/custom2.JPG",
+      "/images/custom3.JPG",
+    ],
     category: "custom",
   },
 ];

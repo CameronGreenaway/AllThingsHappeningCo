@@ -332,8 +332,16 @@ img { display: block; max-width: 100%; }
   transition: background 0.3s;
 }
 .r-card-img { overflow: hidden; }
-.r-card-img .img-ph { transition: transform 0.5s ease; aspect-ratio: 4/3; }
+.r-card-img .img-ph,
+.r-card-photo { transition: transform 0.5s ease; aspect-ratio: 4/3; }
+.r-card-photo {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  object-position: var(--img-pos, center);
+  transform: scale(var(--img-zoom, 1));
+  transform-origin: var(--img-origin, center);
+}
 .r-card:hover .r-card-img .img-ph { transform: scale(1.03); }
+.r-card:hover .r-card-img .r-card-photo { transform: scale(calc(var(--img-zoom, 1) + 0.03)); }
 .r-card-body { padding: 1.8rem 2rem 2rem; }
 .r-card::after {
   content: ''; position: absolute;
@@ -402,6 +410,80 @@ img { display: block; max-width: 100%; }
   display: flex; align-items: center; gap: 0.4rem;
 }
 .modal-close button:hover { color: var(--forest); }
+.modal-gallery {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.2rem;
+  padding: 2rem 2.5rem 0;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(130,150,114,0.15);
+  padding-bottom: 2rem;
+}
+.modal-gallery .img-ph,
+.modal-gallery-img {
+  aspect-ratio: 1;
+  min-height: 160px;
+}
+.modal-gallery-img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  border-radius: 2px;
+  display: block;
+  cursor: zoom-in;
+  transition: filter 0.25s ease;
+}
+.modal-gallery-img:hover { filter: brightness(0.92); }
+
+/* ── PHOTO VIEWER (full-size view for rental modal gallery) ── */
+.photo-viewer {
+  position: fixed; inset: 0; z-index: 9999;
+  background: rgba(36,53,48,0.92);
+  display: flex; align-items: center; justify-content: center;
+  padding: 2rem; cursor: zoom-out;
+}
+.photo-viewer-img {
+  max-width: 92vw; max-height: 90vh;
+  object-fit: contain; cursor: default;
+  box-shadow: 0 24px 70px rgba(0,0,0,0.45);
+}
+.photo-viewer-close {
+  position: fixed; top: 1.4rem; right: 1.8rem;
+  background: none; border: none; color: #fff;
+  font-size: 1.6rem; line-height: 1; cursor: pointer;
+  opacity: 0.85; transition: opacity 0.2s;
+}
+.photo-viewer-close:hover { opacity: 1; }
+/* A lone photo spans the full width instead of leaving an empty cell */
+.modal-gallery-img:only-child {
+  grid-column: 1 / -1;
+  aspect-ratio: 16 / 9;
+}
+@media (max-width: 600px) {
+  /* On mobile: one image per row, shown in FULL (no cropping/face-zoom),
+     sized to fit the width, capped so the title & description stay prominent. */
+  .modal-gallery {
+    grid-template-columns: 1fr;
+    gap: 0.9rem;
+    padding: 1.5rem 1.5rem 1.5rem;
+    max-width: 100%;
+  }
+  .modal-gallery-img,
+  .modal-gallery-img:only-child {
+    aspect-ratio: auto !important;
+    width: 100% !important;
+    height: auto !important;
+    max-height: 65vh;
+    object-fit: contain !important;
+    min-height: 0 !important;
+    grid-column: auto !important;
+    background: rgba(130,150,114,0.06);
+  }
+  .modal-gallery .img-ph {
+    aspect-ratio: 4 / 3;
+    min-height: 0;
+  }
+}
 .modal-body { padding: 0 2.5rem 3rem; flex: 1; }
 .modal-tag {
   font-size: 0.6rem; font-weight: 700; letter-spacing: 0.22em;

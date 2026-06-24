@@ -10,7 +10,7 @@
      Dashboard → Email Templates → Create New Template
      Subject line: {{subject_prefix}} — {{inquiry_type}} from {{from_name}}
      Body fields to include: from_name, from_email, phone, event_date,
-       event_type, items, message
+       event_type, guest_count, items, message
      Reply-To: {{from_email}}
      Copy the Template ID
   4. Get Public Key:
@@ -50,6 +50,7 @@ const INITIAL_FORM = {
   phone: '',
   eventDate: '',
   eventType: '',
+  guestCount: '',
   items: [],
   message: '',
 };
@@ -86,6 +87,7 @@ export default function Contact() {
       phone: form.phone || 'Not provided',
       event_date: form.eventDate || 'N/A',
       event_type: form.eventType || 'N/A',
+      guest_count: form.guestCount || 'Not specified',
       items: form.items.length ? form.items.join(', ') : 'None specified',
       message: form.message,
     };
@@ -168,7 +170,7 @@ export default function Contact() {
 
               <div className="contact-info-block">
                 <div className="contact-info-label">Booking Lead Time</div>
-                <div className="contact-info-value">Minimum 4 weeks in advance</div>
+                <div className="contact-info-value">Minimum 14 days in advance</div>
               </div>
 
               <div className="contact-info-block">
@@ -304,6 +306,21 @@ export default function Contact() {
                         </div>
                       </div>
                     </>
+                  )}
+
+                  {/* Guest Count - available for booking and general questions */}
+                  {(inquiryType.value === 'booking' || inquiryType.value === 'question') && (
+                    <div className="form-group">
+                      <label className="form-label">Guest Count (optional)</label>
+                      <input
+                        className="form-input"
+                        type="number"
+                        min="1"
+                        value={form.guestCount}
+                        onChange={set('guestCount')}
+                        placeholder="How many people are attending?"
+                      />
+                    </div>
                   )}
 
                   {/* Message */}

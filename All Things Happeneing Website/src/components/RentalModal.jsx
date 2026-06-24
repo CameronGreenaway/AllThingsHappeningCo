@@ -1,20 +1,30 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import ImagePlaceholder from './ImagePlaceholder';
 
 export default function RentalModal({ service, onClose }) {
   const open = !!service;
+  const [zoomed, setZoomed] = useState(null);
 
   useEffect(() => {
-    const onKey = (e) => { if (e.key === 'Escape') onClose(); };
+    const onKey = (e) => {
+      if (e.key !== 'Escape') return;
+      // Esc closes the enlarged photo first, then the modal itself
+      if (zoomed) setZoomed(null);
+      else onClose();
+    };
     if (open) document.addEventListener('keydown', onKey);
     document.body.style.overflow = open ? 'hidden' : '';
     return () => {
       document.removeEventListener('keydown', onKey);
       document.body.style.overflow = '';
     };
-  }, [open, onClose]);
+  }, [open, onClose, zoomed]);
+
+  // Reset the enlarged photo whenever the modal closes
+  useEffect(() => { if (!open) setZoomed(null); }, [open]);
 
   return (
+    <>
     <div
       className={`modal-overlay${open ? ' open' : ''}`}
       onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
@@ -29,10 +39,21 @@ export default function RentalModal({ service, onClose }) {
 
         {service && (
           <>
-            <ImagePlaceholder
-              label={service.imageLabel}
-              style={{ aspectRatio: '16/9', width: '100%' }}
-            />
+            <div className="modal-gallery">
+              {service.images?.length ? (
+                service.images.map((src, i) => (
+                  <img
+                    key={i}
+                    src={src}
+                    alt={`${service.name} — photo ${i + 1}`}
+                    className="modal-gallery-img"
+                    onClick={() => setZoomed(src)}
+                  />
+                ))
+              ) : (
+                <ImagePlaceholder label={service.imageLabel} />
+              )}
+            </div>
             <div className="modal-body">
               <div className="modal-tag">{service.tag}</div>
               <div className="modal-name">{service.name}</div>
@@ -69,5 +90,14 @@ export default function RentalModal({ service, onClose }) {
         )}
       </div>
     </div>
+
+      {/* Full-size photo viewer — click any gallery image to open */}
+      {zoomed && (
+        <div className="photo-viewer" onClick={() => setZoomed(null)}>
+          <button className="photo-viewer-close" onClick={() => setZoomed(null)} aria-label="Close">✕</button>
+          <img src={zoomed} alt="" className="photo-viewer-img" onClick={(e) => e.stopPropagation()} />
+        </div>
+      )}
+    </>
   );
 }

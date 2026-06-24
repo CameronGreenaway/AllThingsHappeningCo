@@ -25,7 +25,11 @@ export default function Partners() {
               <AnimateIn key={p.id} delay={i * 80}>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', border: '1px solid rgba(130,150,114,0.15)', overflow: 'hidden', background: '#fff' }}>
                   <div style={{ order: i % 2 === 0 ? 0 : 1 }}>
-                    <ImagePlaceholder label={p.imageLabel} style={{ aspectRatio: '4/3', width: '100%' }} />
+                    {p.image ? (
+                      <img src={p.image} alt={p.name} style={{ aspectRatio: '4/3', width: '100%', height: '100%', objectFit: 'contain', objectPosition: p.imagePosition || 'center', display: 'block' }} />
+                    ) : (
+                      <ImagePlaceholder label={p.imageLabel} style={{ aspectRatio: '4/3', width: '100%' }} />
+                    )}
                   </div>
                   <div style={{ padding: '3rem 3rem 3rem 2.5rem', order: i % 2 === 0 ? 1 : 0 }}>
                     <div className="p-badge">{p.badge}</div>

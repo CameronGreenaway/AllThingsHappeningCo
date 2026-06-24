@@ -67,7 +67,11 @@ export default function Home() {
               <AnimateIn key={s.id} delay={i * 55}>
                 <div className="r-card" style={{ height: '100%' }}>
                   <div className="r-card-img">
-                    <ImagePlaceholder label={s.imageLabel} className="card" />
+                    {s.images?.length ? (
+                      <img src={s.images[0]} alt={s.name} className="card r-card-photo" style={s.mainImageStyle} />
+                    ) : (
+                      <ImagePlaceholder label={s.imageLabel} className="card" />
+                    )}
                   </div>
                   <div className="r-card-body">
                     <div className="r-tag">{s.tag}</div>

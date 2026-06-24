@@ -8,7 +8,7 @@ const POLICIES = [
     body: (
       <>
         <p>All bookings require a <strong>25% non-refundable deposit</strong> of the total order to secure your date. The remaining balance is due prior to the event date as outlined in your booking agreement.</p>
-        <p>We require a minimum of <strong>4 weeks advance notice</strong> for all bookings. For peak season dates (June–October), we strongly recommend booking 2–3 months in advance.</p>
+        <p>We require a minimum of <strong>14 days advance notice</strong> for all bookings. For peak season dates (June–October), we strongly recommend booking 2–3 months in advance.</p>
         <p>A booking is not confirmed until the deposit is received and a booking confirmation is sent via email. Inquiries and quotes do not hold dates.</p>
         <ul>
           <li>Deposits are accepted via credit card, PayPal, or Venmo</li>

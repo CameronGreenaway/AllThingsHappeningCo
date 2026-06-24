@@ -9,6 +9,7 @@ export const PARTNERS = [
     href: "https://www.towandtoast.com",
     instagram: null,
     imageLabel: "Tow & Toast Mobile Bar Trailer",
+    image: "/images/towlogo.png",
     services: ["Mobile Bar", "Craft Cocktails", "Pop-Up Bar Service", "Event Bartending"],
   },
   {
@@ -21,6 +22,8 @@ export const PARTNERS = [
     href: "https://www.instagram.com/pgh360photo",
     instagram: "@pgh360photo",
     imageLabel: "360° Photo Booth at Event",
+    image: "/images/pgh360.png",
+    imagePosition: "center top",
     services: ["360° Video Booth", "DSLR Photo Booth", "Instant Printing", "Custom Overlays"],
   },
 ];
