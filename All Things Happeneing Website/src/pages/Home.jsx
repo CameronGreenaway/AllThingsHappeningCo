@@ -170,7 +170,11 @@ export default function Home() {
               <AnimateIn key={p.id} delay={i * 100}>
                 <div className="p-card">
                   <div className="p-card-img">
-                    <ImagePlaceholder label={p.imageLabel} />
+                    {p.image ? (
+                      <img src={p.image} alt={p.name} style={{ objectFit: 'contain', objectPosition: p.imagePosition || 'center', width: '100%', height: '100%', display: 'block' }} />
+                    ) : (
+                      <ImagePlaceholder label={p.imageLabel} />
+                    )}
                   </div>
                   <div className="p-card-body">
                     <div className="p-badge">{p.badge}</div>
