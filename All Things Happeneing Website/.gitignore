@@ -24,3 +24,6 @@ yarn-error.log*
 
 # Claude Code
 .claude/
+
+# Personal notes (do not deploy)
+public/images/Pictures we need.txt
