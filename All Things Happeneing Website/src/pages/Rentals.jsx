@@ -1,11 +1,12 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import AnimateIn from '../components/AnimateIn';
 import ImagePlaceholder from '../components/ImagePlaceholder';
 import RentalModal from '../components/RentalModal';
 import { SERVICES, CATEGORIES } from '../data/services';
 
 export default function Rentals() {
+  const location = useLocation();
   const [activeCategory, setActiveCategory] = useState('all');
   const [selectedService, setSelectedService] = useState(null);
 
@@ -15,6 +16,16 @@ export default function Rentals() {
         const categories = s.categories || [s.category];
         return categories.includes(activeCategory);
       });
+
+  useEffect(() => {
+    if (location.hash) {
+      const serviceId = location.hash.slice(1);
+      const service = SERVICES.find(s => s.id === serviceId);
+      if (service) {
+        setSelectedService(service);
+      }
+    }
+  }, [location.hash]);
 
   return (
     <>

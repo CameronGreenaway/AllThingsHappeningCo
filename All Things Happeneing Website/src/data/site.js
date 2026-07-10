@@ -21,12 +21,12 @@ export const NAV_LINKS = [
 ];
 
 export const FOOTER_SERVICES = [
-  { label: "Audio Guest Book", to: "/rentals" },
-  { label: "Tattoo Machine", to: "/rentals" },
-  { label: "Drapery Backdrops", to: "/rentals" },
-  { label: "Baby Shower Station", to: "/rentals" },
-  { label: "Build-A-Bear Station", to: "/rentals" },
-  { label: "Custom Accessories", to: "/rentals" },
+  { label: "Audio Guest Book", to: "/rentals#phone-booth" },
+  { label: "Tattoo Machine", to: "/rentals#tattoo-vending" },
+  { label: "Drapery Backdrops", to: "/rentals#drapery" },
+  { label: "Baby Shower Station", to: "/rentals#baby-shower" },
+  { label: "Build-A-Bear Station", to: "/rentals#build-a-bear" },
+  { label: "Custom Accessories", to: "/rentals#custom-accessories" },
 ];
 
 export const FOOTER_COMPANY = [
@@ -38,11 +38,11 @@ export const FOOTER_COMPANY = [
 ];
 
 export const FOOTER_POLICIES = [
-  { label: "Booking Policy", to: "/policies" },
-  { label: "Cancellation Policy", to: "/policies" },
-  { label: "Damage Liability", to: "/policies" },
-  { label: "Delivery Info", to: "/policies" },
-  { label: "Privacy Policy", to: "/policies" },
+  { label: "Booking Policy", to: "/policies#booking" },
+  { label: "Cancellation Policy", to: "/policies#cancellation" },
+  { label: "Damage Liability", to: "/policies#damage" },
+  { label: "Delivery Info", to: "/policies#delivery" },
+  { label: "Privacy Policy", to: "/policies#privacy" },
 ];
 
 export const VALUES = [
