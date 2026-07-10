@@ -1,4 +1,5 @@
-import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import AnimateIn from '../components/AnimateIn';
 
 const POLICIES = [
@@ -92,6 +93,20 @@ const POLICIES = [
 ];
 
 export default function Policies() {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.hash) {
+      const sectionId = location.hash.slice(1);
+      const element = document.getElementById(sectionId);
+      if (element) {
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+      }
+    }
+  }, [location.hash]);
+
   return (
     <>
       <div className="page-header">
