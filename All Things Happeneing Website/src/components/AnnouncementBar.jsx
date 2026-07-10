@@ -33,7 +33,7 @@ export default function AnnouncementBar({ onDismiss }) {
         <p>
           Summer &amp; Fall 2026 Bookings Now Open
           <span className="ann-dot">·</span>
-          Reserve Your Date — 4 Weeks Minimum Lead Time
+          Reserve Your Date — 14 Day Minimum Lead Time
           <span className="ann-dot">·</span>
           Pittsburgh &amp; 50-Mile Radius
         </p>

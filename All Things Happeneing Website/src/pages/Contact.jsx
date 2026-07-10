@@ -154,7 +154,7 @@ export default function Contact() {
 
       {/* Trust bar */}
       <div className="trust-bar">
-        {['Pittsburgh-Based', '50-Mile Radius', '24-Hr Response Time', '25% Deposit to Book', 'Delivery Included', '4-Week Lead Time'].map(t => (
+        {['Pittsburgh-Based', '50-Mile Radius', '24-Hr Response Time', '25% Deposit to Book', 'Delivery Included', '14 Day Lead Time'].map(t => (
           <div className="trust-item" key={t}>
             <svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor" style={{ color: 'var(--sage)' }}><circle cx="4" cy="4" r="4"/></svg>
             {t}

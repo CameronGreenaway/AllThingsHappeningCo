@@ -255,7 +255,7 @@ export default function Home() {
             <Link to="/contact" className="btn-solid">Start Booking</Link>
             <Link to="/rentals" className="btn-ghost">Browse Rentals</Link>
           </div>
-          <div className="cta-note">Serving Pittsburgh & Surroundings · 50-Mile Radius · Book 4 Weeks in Advance</div>
+          <div className="cta-note">Serving Pittsburgh & Surroundings · 50-Mile Radius · Book 14 Days in Advance</div>
         </AnimateIn>
       </section>
     </>
