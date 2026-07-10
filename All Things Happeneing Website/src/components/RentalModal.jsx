@@ -42,13 +42,27 @@ export default function RentalModal({ service, onClose }) {
             <div className="modal-gallery">
               {service.images?.length ? (
                 service.images.map((src, i) => (
-                  <img
-                    key={i}
-                    src={src}
-                    alt={`${service.name} — photo ${i + 1}`}
-                    className="modal-gallery-img"
-                    onClick={() => setZoomed(src)}
-                  />
+                  src.endsWith('.mp4') ? (
+                    <video
+                      key={i}
+                      src={src}
+                      alt={`${service.name} — video ${i + 1}`}
+                      className="modal-gallery-img"
+                      style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                      controls
+                      autoPlay
+                      loop
+                      muted
+                    />
+                  ) : (
+                    <img
+                      key={i}
+                      src={src}
+                      alt={`${service.name} — photo ${i + 1}`}
+                      className="modal-gallery-img"
+                      onClick={() => setZoomed(src)}
+                    />
+                  )
                 ))
               ) : (
                 <ImagePlaceholder label={service.imageLabel} />

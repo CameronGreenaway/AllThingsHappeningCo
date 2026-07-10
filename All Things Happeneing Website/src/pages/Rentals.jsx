@@ -49,8 +49,8 @@ export default function Rentals() {
               <AnimateIn key={s.id} delay={i * 45}>
                 <div className="r-card" style={{ height: '100%' }}>
                   <div className="r-card-img">
-                    {s.images?.length ? (
-                      <img src={s.images[0]} alt={s.name} className="card r-card-photo" style={s.mainImageStyle} />
+                    {s.mainImage || s.images?.length ? (
+                      <img src={s.mainImage || s.images[0]} alt={s.name} className="card r-card-photo" style={s.mainImageStyle} />
                     ) : (
                       <ImagePlaceholder label={s.imageLabel} className="card" />
                     )}
