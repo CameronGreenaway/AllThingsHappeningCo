@@ -5,6 +5,7 @@ import ImagePlaceholder from './ImagePlaceholder';
 export default function RentalModal({ service, onClose }) {
   const open = !!service;
   const [zoomed, setZoomed] = useState(null);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
   useEffect(() => {
     const onKey = (e) => {
@@ -23,6 +24,13 @@ export default function RentalModal({ service, onClose }) {
 
   // Reset the enlarged photo whenever the modal closes
   useEffect(() => { if (!open) setZoomed(null); }, [open]);
+
+  // Track mobile state on resize
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   return (
     <>
@@ -51,7 +59,7 @@ export default function RentalModal({ service, onClose }) {
                       className="modal-gallery-img"
                       style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
                       controls
-                      autoPlay
+                      autoPlay={!isMobile}
                       loop
                       muted
                     />
