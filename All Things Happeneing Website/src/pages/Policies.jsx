@@ -101,7 +101,9 @@ export default function Policies() {
       const element = document.getElementById(sectionId);
       if (element) {
         setTimeout(() => {
-          element.scrollIntoView({ behavior: 'smooth' });
+          const offset = 120;
+          const elementTop = element.getBoundingClientRect().top + window.scrollY;
+          window.scrollTo({ top: elementTop - offset, behavior: 'smooth' });
         }, 100);
       }
     }
