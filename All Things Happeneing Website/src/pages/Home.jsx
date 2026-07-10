@@ -139,7 +139,7 @@ export default function Home() {
               <div className="area-stats">
                 {[
                   { n: '50', l: 'Mile Radius' },
-                  { n: '4+', l: 'Week Lead Time' },
+                  { n: '14+', l: 'Day Lead Time' },
                   { n: '1–2', l: 'Hr Setup Window' },
                   { n: '25%', l: 'Deposit to Book' },
                 ].map(s => (
