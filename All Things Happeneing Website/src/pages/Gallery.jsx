@@ -13,7 +13,7 @@ const GALLERY_ITEMS = [
   { id: 8, label: "Custom Linen Signage — Wedding Reception", layout: "tall", filter: "weddings", image: "/images/sign1.JPG" },
   { id: 9, label: "Phone Booth Detail Shot — Baby Shower", layout: "", filter: "weddings", image: "/images/phone6.JPG" },
   { id: 10, label: "Tattoo Machine Close-Up — Birthday Party", layout: "", filter: "birthdays", image: "/images/phone7.JPG" },
-  { id: 12, label: "Drapery Backdrop — Graduation Celebration", layout: "", filter: "graduations", image: "/images/backdrop3.JPG" },
+  { id: 12, label: "Drapery Backdrop — Graduation Celebration", layout: "", filter: ["graduations", "corporate"], image: "/images/backdrop3.JPG" },
   { id: 13, label: "Custom Cups & Napkins Flat Lay — Wedding", layout: "", filter: "weddings", image: "/images/custom2.JPG" },
   { id: 14, label: "Phone Booth — Birthday Party Setup", layout: "", filter: "birthdays", image: "/images/sign2.JPG" },
   { id: 15, label: "Baby Shower Station Table Display", layout: "", filter: "weddings", image: "/images/custom3.JPG" },
@@ -41,7 +41,10 @@ export default function Gallery() {
 
   const filtered = activeFilter === 'all'
     ? GALLERY_ITEMS
-    : GALLERY_ITEMS.filter(g => g.filter === activeFilter);
+    : GALLERY_ITEMS.filter(g => {
+      const filters = Array.isArray(g.filter) ? g.filter : [g.filter];
+      return filters.includes(activeFilter);
+    });
 
   useEffect(() => {
     const onKey = (e) => {
