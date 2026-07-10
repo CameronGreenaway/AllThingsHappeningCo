@@ -32,6 +32,56 @@ export const SERVICES = [
     // Shift the card crop upward so the arched "TELEPHONE" top is in frame
     mainImageStyle: { "--img-pos": "center 20%" },
     category: "entertainment",
+    packages: [
+      {
+        id: "phone-4hr",
+        name: "4-Hour Minimum",
+        price: "$800",
+        items: [
+          "Vintage phone booth prop",
+          "Personalized mirror with your name & date",
+          "Audio guestbook handset",
+          "Complete audio file of all recorded messages",
+          "Delivery, setup, and takedown",
+          "4-hour rental duration",
+        ],
+      },
+      {
+        id: "phone-24hr",
+        name: "24-Hour Rental",
+        price: "$1,400",
+        items: [
+          "Vintage phone booth prop",
+          "Personalized mirror with your name & date",
+          "Audio guestbook handset",
+          "Complete audio file of all recorded messages",
+          "Delivery, setup, and takedown",
+          "24-hour rental duration",
+        ],
+      },
+      {
+        id: "phone-only",
+        name: "Phone Only (No Booth)",
+        price: "$300",
+        items: [
+          "Audio guestbook handset only",
+          "No booth prop included",
+          "Personalized mirror (optional)",
+          "Complete audio file of all recorded messages",
+          "4-hour rental duration",
+        ],
+      },
+      {
+        id: "phone-additional",
+        name: "Additional Time",
+        price: "$125/hr",
+        items: [
+          "Hourly rate for time beyond initial package",
+          "Available for 4-hour or 24-hour rentals",
+          "Same setup and audio delivery included",
+        ],
+      },
+    ],
   },
   {
     id: "tattoo-vending",
@@ -99,10 +149,10 @@ export const SERVICES = [
       "Delivery and pickup",
     ],
     pricing: [
-      { label: "32\" High Round Table", price: "$25" },
-      { label: "23.6\" Round High Pub Table", price: "$20" },
+      { label: "32\" High Round Table", price: "$25/day" },
+      { label: "23.6\" Round High Pub Table", price: "$20/day" },
     ],
-    startingFrom: "From $20",
+    startingFrom: "From $20/day",
     popular: false,
     imageLabel: "High-Top Table Rental",
     images: [

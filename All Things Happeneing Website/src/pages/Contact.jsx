@@ -56,6 +56,7 @@ const INITIAL_FORM = {
   items: [],
   babyShowerPackage: '',
   tableSize: '',
+  phoneBoothPackage: '',
   message: '',
 };
 
@@ -70,6 +71,8 @@ export default function Contact() {
   const isBabyShowerSelected = form.items.includes('Baby Shower Station');
   const tablesService = SERVICES.find(s => s.id === 'tables');
   const isTablesSelected = form.items.includes('Table Rentals');
+  const phoneBoothService = SERVICES.find(s => s.id === 'phone-booth');
+  const isPhoneBoothSelected = form.items.includes('Audio Guest Book Phone Booth');
 
   const isConfigured = EMAILJS_CONFIG.serviceId !== 'YOUR_EMAILJS_SERVICE_ID';
 
@@ -94,6 +97,9 @@ export default function Contact() {
     }
     if (isTablesSelected && form.tableSize) {
       itemsText = itemsText.replace('Table Rentals', `Table Rentals (${form.tableSize})`);
+    }
+    if (isPhoneBoothSelected && form.phoneBoothPackage) {
+      itemsText = itemsText.replace('Audio Guest Book Phone Booth', `Audio Guest Book Phone Booth (${form.phoneBoothPackage})`);
     }
 
     const params = {
@@ -396,6 +402,27 @@ export default function Contact() {
                               {tablesService.pricing.map((option, idx) => (
                                 <option key={idx} value={option.label}>
                                   {option.label} — {option.price}
+                                </option>
+                              ))}
+                            </select>
+                          </div>
+                        </div>
+                      )}
+
+                      {isPhoneBoothSelected && phoneBoothService?.packages && (
+                        <div className="form-group">
+                          <label className="form-label">Phone Booth Package *</label>
+                          <div className="form-select-wrap">
+                            <select
+                              className="form-select"
+                              required
+                              value={form.phoneBoothPackage}
+                              onChange={set('phoneBoothPackage')}
+                            >
+                              <option value="">Select a package…</option>
+                              {phoneBoothService.packages.map(pkg => (
+                                <option key={pkg.id} value={pkg.name}>
+                                  {pkg.name} — {pkg.price}
                                 </option>
                               ))}
                             </select>
