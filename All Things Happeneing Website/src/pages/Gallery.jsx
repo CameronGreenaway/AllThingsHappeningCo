@@ -8,7 +8,7 @@ const GALLERY_ITEMS = [
   { id: 2, label: "Tattoo Vending Machine — Graduation Party", layout: "", filter: "graduations", image: "/images/tattoo1.JPG" },
   { id: 3, label: "Drapery Backdrop — Wedding Ceremony", layout: "", filter: "weddings", image: "/images/backdrop1.JPG" },
   { id: 4, label: "Custom Mirror Display — Bridal Shower", layout: "", filter: "weddings", image: "/images/custom1.JPG" },
-  { id: 5, label: "Baby Shower Onesie Station Full Setup", layout: "wide", filter: "baby-showers", image: "/images/phone2.JPG" },
+  { id: 5, label: "Baby Shower Onesie Station Full Setup", layout: "wide", filter: "weddings", image: "/images/phone2.JPG" },
   { id: 6, label: "Build-A-Bear Station — Kids Birthday", layout: "", filter: "birthdays", image: "/images/phone3.JPG" },
   { id: 8, label: "Custom Linen Signage — Wedding Reception", layout: "tall", filter: "weddings", image: "/images/sign1.JPG" },
   { id: 9, label: "Phone Booth Detail Shot — Baby Shower", layout: "", filter: "weddings", image: "/images/phone6.JPG" },
