@@ -248,6 +248,8 @@ export default function Contact() {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} noValidate>
+                  <label style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text)', display: 'block', marginBottom: '0.8rem', letterSpacing: '0.05em', textTransform: 'uppercase' }}>Please Choose Type of Inquiry</label>
+
                   {/* Inquiry type tabs */}
                   <div className="inquiry-tabs">
                     {INQUIRY_TYPES.map(t => (
