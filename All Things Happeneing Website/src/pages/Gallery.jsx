@@ -18,6 +18,12 @@ const GALLERY_ITEMS = [
   { id: 14, label: "Phone Booth — Birthday Party Setup", layout: "", filter: "birthdays", image: "/images/sign2.JPG" },
   { id: 15, label: "Baby Shower Station Table Display", layout: "", filter: "baby-showers", image: "/images/custom3.JPG" },
   { id: 16, label: "Build-A-Bear Hosted Session", layout: "", filter: "birthdays", image: "/images/backdrop1.JPG" },
+  { id: 17, label: "Baby Shower Onesie Decorating Demo", layout: "", filter: "baby-showers", image: "/images/Baby1.png" },
+  { id: 18, label: "Guests Creating at Baby Shower Station", layout: "", filter: "baby-showers", image: "/images/Baby2.png" },
+  { id: 19, label: "Baby Shower Crafting in Progress", layout: "", filter: "baby-showers", image: "/images/Baby3.png" },
+  { id: 20, label: "Baby Shower Station Video Walkthrough", layout: "", filter: "baby-showers", image: "/images/CineBaby.mp4" },
+  { id: 21, label: "High-Top Tables Setup — Reception", layout: "", filter: "weddings", image: "/images/Tables1.png" },
+  { id: 22, label: "Modern Table Rental Display", layout: "", filter: "weddings", image: "/images/Tables2.png" },
 ];
 
 const FILTERS = [
