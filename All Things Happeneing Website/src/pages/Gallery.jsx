@@ -94,13 +94,24 @@ export default function Gallery() {
                 onClick={() => setLightbox(i)}
               >
                 {item.image ? (
-                  <img src={item.image} alt={item.label} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                  item.image.endsWith('.mp4') ? (
+                    <>
+                      <video src={item.image} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                      <div className="gallery-overlay" style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <span style={{ fontSize: '3rem', color: 'white', textShadow: '0 2px 8px rgba(0,0,0,0.3)' }}>▶</span>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <img src={item.image} alt={item.label} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                      <div className="gallery-overlay">
+                        <span className="gallery-zoom">+</span>
+                      </div>
+                    </>
+                  )
                 ) : (
                   <ImagePlaceholder label={item.label} style={{ height: '100%', minHeight: 220 }} />
                 )}
-                <div className="gallery-overlay">
-                  <span className="gallery-zoom">+</span>
-                </div>
               </div>
             ))}
           </div>
