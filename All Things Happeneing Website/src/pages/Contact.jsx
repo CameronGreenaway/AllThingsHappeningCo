@@ -54,6 +54,7 @@ const INITIAL_FORM = {
   eventType: '',
   guestCount: '',
   items: [],
+  babyShowerPackage: '',
   message: '',
 };
 
@@ -63,6 +64,9 @@ export default function Contact() {
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
   const [error, setError] = useState('');
+
+  const babyShowerService = SERVICES.find(s => s.id === 'baby-shower');
+  const isBabyShowerSelected = form.items.includes('Baby Shower Station');
 
   const isConfigured = EMAILJS_CONFIG.serviceId !== 'YOUR_EMAILJS_SERVICE_ID';
 
@@ -81,6 +85,11 @@ export default function Contact() {
     e.preventDefault();
     setError('');
 
+    let itemsText = form.items.length ? form.items.join(', ') : 'None specified';
+    if (isBabyShowerSelected && form.babyShowerPackage) {
+      itemsText = itemsText.replace('Baby Shower Station', `Baby Shower Station (${form.babyShowerPackage})`);
+    }
+
     const params = {
       subject_prefix: inquiryType.prefix,
       inquiry_type: inquiryType.label,
@@ -92,7 +101,7 @@ export default function Contact() {
       event_end_time: form.eventEndTime || 'N/A',
       event_type: form.eventType || 'N/A',
       guest_count: form.guestCount || 'Not specified',
-      items: form.items.length ? form.items.join(', ') : 'None specified',
+      items: itemsText,
       message: form.message,
     };
 
@@ -345,6 +354,27 @@ export default function Contact() {
                           ))}
                         </div>
                       </div>
+
+                      {isBabyShowerSelected && babyShowerService?.packages && (
+                        <div className="form-group">
+                          <label className="form-label">Baby Shower Station Package *</label>
+                          <div className="form-select-wrap">
+                            <select
+                              className="form-select"
+                              required
+                              value={form.babyShowerPackage}
+                              onChange={set('babyShowerPackage')}
+                            >
+                              <option value="">Select a package…</option>
+                              {babyShowerService.packages.map(pkg => (
+                                <option key={pkg.id} value={pkg.name}>
+                                  {pkg.name} — {pkg.price}
+                                </option>
+                              ))}
+                            </select>
+                          </div>
+                        </div>
+                      )}
                     </>
                   )}
 

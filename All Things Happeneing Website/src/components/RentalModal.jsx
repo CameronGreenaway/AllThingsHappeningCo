@@ -59,20 +59,48 @@ export default function RentalModal({ service, onClose }) {
               <div className="modal-name">{service.name}</div>
               <p className="modal-desc">{service.fullDesc}</p>
 
-              <div className="modal-section-head">What's Included</div>
-              <ul className="modal-includes">
-                {service.includes.map((item, i) => <li key={i}>{item}</li>)}
-              </ul>
-
-              <div className="modal-section-head">Pricing</div>
-              <div className="modal-pricing">
-                {service.pricing.map((p, i) => (
-                  <div className="modal-pricing-row" key={i}>
-                    <span>{p.label}</span>
-                    <span className="price">{p.price}</span>
+              {service.packages && service.packages.length > 0 ? (
+                <>
+                  <div className="modal-section-head">Package Options</div>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1.5rem', marginBottom: '2rem' }}>
+                    {service.packages.map((pkg) => (
+                      <div key={pkg.id} style={{ border: '1px solid rgba(130,150,114,0.2)', padding: '1.5rem', background: 'rgba(130,150,114,0.02)' }}>
+                        <div style={{ fontSize: '1.1rem', fontWeight: 600, marginBottom: '0.5rem', color: 'var(--text)' }}>{pkg.name}</div>
+                        <div style={{ fontSize: '1.3rem', fontWeight: 700, color: 'var(--sage)', marginBottom: '1rem' }}>{pkg.price}</div>
+                        <ul style={{ fontSize: '0.85rem', color: 'var(--text-muted)', lineHeight: 1.6, listStyle: 'none', padding: 0, marginBottom: '0.8rem' }}>
+                          {pkg.items.map((item, i) => (
+                            <li key={i} style={{ marginBottom: '0.4rem' }}>
+                              <span style={{ color: 'var(--sage)' }}>✓</span> {item}
+                            </li>
+                          ))}
+                        </ul>
+                        {pkg.note && (
+                          <p style={{ fontSize: '0.8rem', fontStyle: 'italic', color: 'var(--text-muted)', marginTop: '0.8rem', paddingTop: '0.8rem', borderTop: '1px solid rgba(130,150,114,0.1)' }}>
+                            {pkg.note}
+                          </p>
+                        )}
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
+                </>
+              ) : (
+                <>
+                  <div className="modal-section-head">What's Included</div>
+                  <ul className="modal-includes">
+                    {service.includes.map((item, i) => <li key={i}>{item}</li>)}
+                  </ul>
+
+                  <div className="modal-section-head">Pricing</div>
+                  <div className="modal-pricing">
+                    {service.pricing.map((p, i) => (
+                      <div className="modal-pricing-row" key={i}>
+                        <span>{p.label}</span>
+                        <span className="price">{p.price}</span>
+                      </div>
+                    ))}
+                  </div>
+                </>
+              )}
 
               <a
                 href="/contact"
