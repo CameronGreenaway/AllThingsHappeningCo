@@ -422,7 +422,7 @@ export default function Contact() {
                               onChange={set('phoneBoothPackage')}
                             >
                               <option value="">Select a package…</option>
-                              {phoneBoothService.packages.map(pkg => (
+                              {phoneBoothService.packages.filter(pkg => pkg.id !== 'phone-additional').map(pkg => (
                                 <option key={pkg.id} value={pkg.name}>
                                   {pkg.name} — {pkg.price}
                                 </option>
