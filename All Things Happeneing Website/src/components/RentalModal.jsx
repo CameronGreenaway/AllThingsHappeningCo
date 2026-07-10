@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import ImagePlaceholder from './ImagePlaceholder';
 
 export default function RentalModal({ service, onClose }) {
@@ -116,14 +117,14 @@ export default function RentalModal({ service, onClose }) {
                 </>
               )}
 
-              <a
-                href="/contact"
+              <Link
+                to="/contact"
                 className="btn-solid"
                 style={{ display: 'block', textAlign: 'center', textDecoration: 'none' }}
                 onClick={onClose}
               >
                 Inquire About This
-              </a>
+              </Link>
               <p style={{ fontSize: '0.7rem', color: 'var(--text-muted)', marginTop: '0.8rem', textAlign: 'center', letterSpacing: '0.05em' }}>
                 25% deposit required at booking · Delivery included within 50 miles
               </p>
