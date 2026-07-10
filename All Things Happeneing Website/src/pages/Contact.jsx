@@ -38,7 +38,8 @@
   ══════════════════════════════════════════════════════════════════
 */
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import emailjs from '@emailjs/browser';
 import AnimateIn from '../components/AnimateIn';
 import { SITE, INQUIRY_TYPES, EVENT_TYPES, EMAILJS_CONFIG } from '../data/site';
@@ -61,11 +62,26 @@ const INITIAL_FORM = {
 };
 
 export default function Contact() {
+  const location = useLocation();
   const [inquiryType, setInquiryType] = useState(INQUIRY_TYPES[0]);
   const [form, setForm] = useState(INITIAL_FORM);
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
   const [error, setError] = useState('');
+
+  useEffect(() => {
+    if (location.hash) {
+      const sectionId = location.hash.slice(1);
+      const element = document.getElementById(sectionId);
+      if (element) {
+        setTimeout(() => {
+          const offset = 120;
+          const elementTop = element.getBoundingClientRect().top + window.scrollY;
+          window.scrollTo({ top: elementTop - offset, behavior: 'smooth' });
+        }, 100);
+      }
+    }
+  }, [location.hash]);
 
   const babyShowerService = SERVICES.find(s => s.id === 'baby-shower');
   const isBabyShowerSelected = form.items.includes('Baby Shower Station');
@@ -497,7 +513,7 @@ export default function Contact() {
       </section>
 
       {/* ── AVAILABILITY CALENDAR ── */}
-      <section className="calendar-section">
+      <section className="calendar-section" id="calendar">
         <div className="sec-inner">
           <AnimateIn>
             <div className="sec-eye">Availability</div>

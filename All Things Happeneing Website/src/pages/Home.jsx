@@ -150,7 +150,7 @@ export default function Home() {
                 ))}
               </div>
               <div style={{ marginTop: '2.5rem' }}>
-                <Link to="/contact" className="btn-solid">Check Availability</Link>
+                <Link to="/contact#calendar" className="btn-solid">Check Availability</Link>
               </div>
             </div>
           </AnimateIn>
