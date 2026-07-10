@@ -55,6 +55,7 @@ const INITIAL_FORM = {
   guestCount: '',
   items: [],
   babyShowerPackage: '',
+  tableSize: '',
   message: '',
 };
 
@@ -67,6 +68,8 @@ export default function Contact() {
 
   const babyShowerService = SERVICES.find(s => s.id === 'baby-shower');
   const isBabyShowerSelected = form.items.includes('Baby Shower Station');
+  const tablesService = SERVICES.find(s => s.id === 'tables');
+  const isTablesSelected = form.items.includes('Table Rentals');
 
   const isConfigured = EMAILJS_CONFIG.serviceId !== 'YOUR_EMAILJS_SERVICE_ID';
 
@@ -88,6 +91,9 @@ export default function Contact() {
     let itemsText = form.items.length ? form.items.join(', ') : 'None specified';
     if (isBabyShowerSelected && form.babyShowerPackage) {
       itemsText = itemsText.replace('Baby Shower Station', `Baby Shower Station (${form.babyShowerPackage})`);
+    }
+    if (isTablesSelected && form.tableSize) {
+      itemsText = itemsText.replace('Table Rentals', `Table Rentals (${form.tableSize})`);
     }
 
     const params = {
@@ -369,6 +375,27 @@ export default function Contact() {
                               {babyShowerService.packages.map(pkg => (
                                 <option key={pkg.id} value={pkg.name}>
                                   {pkg.name} — {pkg.price}
+                                </option>
+                              ))}
+                            </select>
+                          </div>
+                        </div>
+                      )}
+
+                      {isTablesSelected && tablesService?.pricing && (
+                        <div className="form-group">
+                          <label className="form-label">Table Size *</label>
+                          <div className="form-select-wrap">
+                            <select
+                              className="form-select"
+                              required
+                              value={form.tableSize}
+                              onChange={set('tableSize')}
+                            >
+                              <option value="">Select a size…</option>
+                              {tablesService.pricing.map((option, idx) => (
+                                <option key={idx} value={option.label}>
+                                  {option.label} — {option.price}
                                 </option>
                               ))}
                             </select>
