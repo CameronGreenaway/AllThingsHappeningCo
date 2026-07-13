@@ -332,7 +332,7 @@ export const SERVICES = [
     ],
     startingFrom: "From $750",
     popular: false,
-    imageLabel: "Kids Build-A-Bear Station Setup",
+    imageLabel: "Image Coming Soon",
     category: "kids",
   },
   {
