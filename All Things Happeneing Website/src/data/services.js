@@ -109,6 +109,7 @@ export const SERVICES = [
     imageLabel: "Tattoo & Sticker Vending Machine at Event",
     images: [
       "/images/tattoo1.JPG",
+      "/images/tattoo2.jpg",
     ],
     category: "entertainment",
     categories: ["entertainment", "kids"],
@@ -202,6 +203,8 @@ export const SERVICES = [
     images: [
       "/images/sign1.JPG",
       "/images/sign2.JPG",
+      "/images/sign3.JPG",
+      "/images/sign4.JPG",
     ],
     // Zoom toward the sign and pan right so the faces on the left fall out of frame
     mainImageStyle: { "--img-zoom": "1.5", "--img-origin": "68% 42%" },
@@ -369,6 +372,7 @@ export const SERVICES = [
       "/images/custom1.JPG",
       "/images/custom2.JPG",
       "/images/custom3.JPG",
+      "/images/custom4.JPG",
     ],
     category: "custom",
   },

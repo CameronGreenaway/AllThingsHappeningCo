@@ -24,6 +24,10 @@ const GALLERY_ITEMS = [
   { id: 20, label: "Baby Shower Station Video Walkthrough", layout: "", filter: "baby-showers", image: "/images/CineBaby.mp4" },
   { id: 21, label: "High-Top Tables Setup — Reception", layout: "", filter: "weddings", image: "/images/Tables1.png" },
   { id: 22, label: "Modern Table Rental Display", layout: "", filter: "weddings", image: "/images/Tables2.png" },
+  { id: 23, label: "Tattoo Vending Machine — Event Setup", layout: "", filter: "graduations", image: "/images/tattoo2.jpg" },
+  { id: 24, label: "Custom Linen Signage — Elegant Display", layout: "", filter: "weddings", image: "/images/sign3.JPG" },
+  { id: 25, label: "Custom Signage — Welcome Sign", layout: "", filter: "weddings", image: "/images/sign4.JPG" },
+  { id: 26, label: "Custom Party Accessories — Detailed Setup", layout: "", filter: "weddings", image: "/images/custom4.JPG" },
 ];
 
 const FILTERS = [
