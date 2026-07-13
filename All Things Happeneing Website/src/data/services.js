@@ -183,6 +183,7 @@ export const SERVICES = [
     images: [
       "/images/Custom_Mirrors.JPG",
     ],
+    mainImageStyle: { "--img-pos": "center top" },
     category: "custom",
   },
   {
