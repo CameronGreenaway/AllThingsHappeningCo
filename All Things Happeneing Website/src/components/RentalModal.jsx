@@ -69,6 +69,13 @@ export default function RentalModal({ service, onClose }) {
                       src={src}
                       alt={`${service.name} — photo ${i + 1}`}
                       className="modal-gallery-img"
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        display: 'block',
+                        objectPosition: service.mainImageStyle?.['--img-pos'] || 'center',
+                      }}
                       onClick={() => setZoomed(src)}
                     />
                   )
