@@ -83,6 +83,18 @@ export default function Contact() {
     }
   }, [location.hash]);
 
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const serviceId = params.get('serviceId');
+    if (serviceId) {
+      const service = SERVICES.find(s => s.id === serviceId);
+      if (service && !form.items.includes(service.name)) {
+        setForm(f => ({ ...f, items: [...f.items, service.name] }));
+        setInquiryType(INQUIRY_TYPES.find(t => t.value === 'booking') || INQUIRY_TYPES[0]);
+      }
+    }
+  }, [location.search]);
+
   const babyShowerService = SERVICES.find(s => s.id === 'baby-shower');
   const isBabyShowerSelected = form.items.includes('Baby Shower Station');
   const tablesService = SERVICES.find(s => s.id === 'tables');

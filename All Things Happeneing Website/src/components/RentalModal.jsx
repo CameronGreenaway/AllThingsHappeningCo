@@ -133,7 +133,7 @@ export default function RentalModal({ service, onClose }) {
               )}
 
               <Link
-                to="/contact"
+                to={`/contact?serviceId=${service.id}`}
                 className="btn-solid"
                 style={{ display: 'block', textAlign: 'center', textDecoration: 'none' }}
                 onClick={onClose}
