@@ -1121,23 +1121,21 @@ img { display: block; max-width: 100%; }
   .values-bar {
     display: flex;
     overflow: hidden;
-    padding: 0.4rem 0;
+    padding: 0.3rem 0;
     gap: 0;
   }
   .val-item {
-    padding: 0.4rem 2rem;
+    padding: 0.3rem 1.2rem;
     white-space: nowrap;
     flex-shrink: 0;
-    animation: ribbon-scroll 50s linear infinite;
+    border-right: 1px solid rgba(255,255,255,0.1);
+    font-size: 0.62rem;
+    animation: scroll-left 40s linear infinite;
   }
-  .val-item:nth-child(1) { animation-delay: 0s; }
-  .val-item:nth-child(2) { animation-delay: 10s; }
-  .val-item:nth-child(3) { animation-delay: 20s; }
-  .val-item:nth-child(4) { animation-delay: 30s; }
-  .val-item:nth-child(5) { animation-delay: 40s; }
+  .val-item:last-child { border-right: none; }
 
-  @keyframes ribbon-scroll {
-    0% { transform: translateX(100vw); }
-    100% { transform: translateX(-100%); }
+  @keyframes scroll-left {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100vw); }
   }
 }
