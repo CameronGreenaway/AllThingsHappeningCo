@@ -1126,11 +1126,16 @@ img { display: block; max-width: 100%; }
   .val-item {
     flex-shrink: 0;
     padding: 0.35rem 1.5rem;
-    animation: scroll-left 45s linear infinite;
+    animation: scroll-left 36s linear infinite;
   }
+  .val-item:nth-child(1) { animation-delay: 0s; }
+  .val-item:nth-child(2) { animation-delay: -7.2s; }
+  .val-item:nth-child(3) { animation-delay: -14.4s; }
+  .val-item:nth-child(4) { animation-delay: -21.6s; }
+  .val-item:nth-child(5) { animation-delay: -28.8s; }
 
   @keyframes scroll-left {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(calc(100vw + 100%)); }
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-600%); }
   }
 }
