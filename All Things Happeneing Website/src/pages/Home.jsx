@@ -81,7 +81,7 @@ export default function Home() {
                       <div className="r-price">{s.startingFrom}</div>
                       {s.popular && <span className="popular-badge">Most Popular</span>}
                     </div>
-                    <Link to="/rentals" className="btn-text" style={{ marginTop: '1.2rem', display: 'inline-flex' }}>
+                    <Link to={`/rentals#${s.id}`} className="btn-text" style={{ marginTop: '1.2rem', display: 'inline-flex' }}>
                       View Details →
                     </Link>
                   </div>

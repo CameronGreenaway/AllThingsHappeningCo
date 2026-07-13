@@ -24,8 +24,12 @@ export const FOOTER_SERVICES = [
   { label: "Audio Guest Book", to: "/rentals#phone-booth" },
   { label: "Tattoo Machine", to: "/rentals#tattoo-vending" },
   { label: "Drapery Backdrops", to: "/rentals#drapery" },
+  { label: "Table Rentals", to: "/rentals#tables" },
+  { label: "Custom Mirrors", to: "/rentals#custom-mirrors" },
+  { label: "Custom Signage", to: "/rentals#custom-signage" },
   { label: "Baby Shower Station", to: "/rentals#baby-shower" },
   { label: "Build-A-Bear Station", to: "/rentals#build-a-bear" },
+  { label: "Charcuterie Cart", to: "/rentals#charcuterie-cart" },
   { label: "Custom Accessories", to: "/rentals#custom-accessories" },
 ];
 
