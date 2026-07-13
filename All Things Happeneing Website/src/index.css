@@ -1119,23 +1119,18 @@ img { display: block; max-width: 100%; }
   .gallery-grid { grid-template-columns: 1fr; }
   .gallery-item.tall { grid-row: span 1; }
   .values-bar {
-    display: flex;
     overflow: hidden;
-    padding: 0.3rem 0;
-    gap: 0;
+    padding: 0.35rem 0;
+    flex-wrap: nowrap;
   }
   .val-item {
-    padding: 0.3rem 1.2rem;
-    white-space: nowrap;
     flex-shrink: 0;
-    border-right: 1px solid rgba(255,255,255,0.1);
-    font-size: 0.62rem;
-    animation: scroll-left 40s linear infinite;
+    padding: 0.35rem 1.5rem;
+    animation: scroll-left 45s linear infinite;
   }
-  .val-item:last-child { border-right: none; }
 
   @keyframes scroll-left {
     0% { transform: translateX(-100%); }
-    100% { transform: translateX(100vw); }
+    100% { transform: translateX(calc(100vw + 100%)); }
   }
 }
