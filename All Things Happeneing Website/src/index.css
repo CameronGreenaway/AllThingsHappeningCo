@@ -1119,16 +1119,17 @@ img { display: block; max-width: 100%; }
   .gallery-grid { grid-template-columns: 1fr; }
   .gallery-item.tall { grid-row: span 1; }
   .values-bar {
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 0;
     padding: 1rem 0;
   }
   .val-item {
-    padding: 1rem 1.5rem;
-    border-right: none;
+    padding: 1rem 1rem;
+    border-right: 1px solid rgba(255,255,255,0.1);
     border-bottom: 1px solid rgba(255,255,255,0.1);
     text-align: center;
-    width: 100%;
   }
-  .val-item:last-child { border-bottom: none; }
+  .val-item:nth-child(2n) { border-right: none; }
+  .val-item:nth-last-child(-n+2) { border-bottom: none; }
 }
