@@ -28,6 +28,7 @@ const GALLERY_ITEMS = [
   { id: 24, label: "Custom Linen Signage — Elegant Display", layout: "", filter: "weddings", image: "/images/sign3.JPG" },
   { id: 25, label: "Custom Signage — Welcome Sign", layout: "", filter: "weddings", image: "/images/sign4.JPG" },
   { id: 26, label: "Custom Party Accessories — Detailed Setup", layout: "", filter: "weddings", image: "/images/custom4.JPG" },
+  { id: 27, label: "Custom Wedding Mirror — Statement Décor", layout: "", filter: "weddings", image: "/images/Custom_Mirrors.JPG" },
 ];
 
 const FILTERS = [

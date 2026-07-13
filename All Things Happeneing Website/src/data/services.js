@@ -180,6 +180,9 @@ export const SERVICES = [
     startingFrom: "Inquire",
     popular: false,
     imageLabel: "Custom Wedding Mirror",
+    images: [
+      "/images/Custom_Mirrors.JPG",
+    ],
     category: "custom",
   },
   {
