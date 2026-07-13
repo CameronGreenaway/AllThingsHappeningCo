@@ -1121,26 +1121,23 @@ img { display: block; max-width: 100%; }
   .values-bar {
     display: flex;
     overflow: hidden;
-    padding: 0.35rem 0;
+    padding: 0.4rem 0;
     gap: 0;
-    height: 1.4rem;
-    align-items: center;
   }
   .val-item {
-    padding: 0 1.5rem;
+    padding: 0.4rem 2rem;
     white-space: nowrap;
     flex-shrink: 0;
-    font-size: 0.56rem;
-    animation: ticker 40s steps(5, end) infinite;
-    display: inline-flex;
-    align-items: center;
+    animation: ribbon-scroll 50s linear infinite;
   }
+  .val-item:nth-child(1) { animation-delay: 0s; }
+  .val-item:nth-child(2) { animation-delay: 10s; }
+  .val-item:nth-child(3) { animation-delay: 20s; }
+  .val-item:nth-child(4) { animation-delay: 30s; }
+  .val-item:nth-child(5) { animation-delay: 40s; }
 
-  @keyframes ticker {
-    0%, 20% { transform: translateX(0); }
-    25%, 45% { transform: translateX(-100%); }
-    50%, 70% { transform: translateX(-200%); }
-    75%, 95% { transform: translateX(-300%); }
-    100% { transform: translateX(-400%); }
+  @keyframes ribbon-scroll {
+    0% { transform: translateX(100vw); }
+    100% { transform: translateX(-100%); }
   }
 }
