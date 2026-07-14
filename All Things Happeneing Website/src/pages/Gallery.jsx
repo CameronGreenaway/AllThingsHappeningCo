@@ -155,9 +155,9 @@ export default function Gallery() {
             <div className="lightbox-img">
               {filtered[lightbox].image ? (
                 filtered[lightbox].image.endsWith('.mp4') ? (
-                  <video src={filtered[lightbox].image} poster={filtered[lightbox].image.replace(/\.mp4$/i, '-poster.jpg')} style={{ width: '100%', height: 'auto', display: 'block' }} controls autoPlay muted loop />
+                  <video src={filtered[lightbox].image} poster={filtered[lightbox].image.replace(/\.mp4$/i, '-poster.jpg')} style={{ display: 'block' }} controls autoPlay muted loop />
                 ) : (
-                  <img src={filtered[lightbox].image} alt={filtered[lightbox].label} style={{ width: '100%', height: 'auto', display: 'block' }} />
+                  <img src={filtered[lightbox].image} alt={filtered[lightbox].label} style={{ display: 'block' }} />
                 )
               ) : (
                 <ImagePlaceholder label={filtered[lightbox].label} className="card" />
