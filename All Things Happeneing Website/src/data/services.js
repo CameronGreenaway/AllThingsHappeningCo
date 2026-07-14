@@ -211,8 +211,8 @@ export const SERVICES = [
       "/images/sign3.JPG",
       "/images/sign4.JPG",
     ],
-    // Zoom toward the sign and pan right so the faces on the left fall out of frame
-    mainImageStyle: { "--img-zoom": "1.5", "--img-origin": "68% 42%" },
+    // Pan up so "Cameron & Allie" and the date stay in frame on the tall sign3 photo
+    mainImageStyle: { "--img-pos": "center 35%" },
     category: "custom",
   },
   {
