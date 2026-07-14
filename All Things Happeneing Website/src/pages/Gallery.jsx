@@ -29,6 +29,9 @@ const GALLERY_ITEMS = [
   { id: 25, label: "Custom Signage — Welcome Sign", layout: "", filter: "weddings", image: "/images/sign4.JPG" },
   { id: 26, label: "Custom Party Accessories — Detailed Setup", layout: "", filter: "weddings", image: "/images/custom4.JPG" },
   { id: 27, label: "Custom Wedding Mirror — Statement Décor", layout: "", filter: "weddings", image: "/images/Custom_Mirrors.JPG" },
+  { id: 28, label: "Tattoo Vending Machine — Graduation Party", layout: "", filter: "graduations", image: "/images/tattoo-grad1.jpg" },
+  { id: 29, label: "Tattoo & Sticker Machine — Graduation Celebration", layout: "", filter: "graduations", image: "/images/tattoo-grad2.jpg" },
+  { id: 30, label: "Custom Tattoo Vending Machine — Graduation Party", layout: "", filter: "graduations", image: "/images/tattoo-grad3.jpg" },
 ];
 
 const FILTERS = [

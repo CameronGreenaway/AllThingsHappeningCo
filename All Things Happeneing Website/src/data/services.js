@@ -110,6 +110,8 @@ export const SERVICES = [
     images: [
       "/images/tattoo1.JPG",
       "/images/tattoo2.jpg",
+      "/images/tattoo-modal1.jpg",
+      "/images/tattoo-modal2.jpg",
     ],
     category: "entertainment",
     categories: ["entertainment", "kids"],
