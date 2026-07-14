@@ -32,11 +32,15 @@ const GALLERY_ITEMS = [
   { id: 28, label: "Tattoo Vending Machine — Graduation Party", layout: "", filter: "graduations", image: "/images/tattoo-grad1.jpg" },
   { id: 29, label: "Tattoo & Sticker Machine — Graduation Celebration", layout: "", filter: "graduations", image: "/images/tattoo-grad2.jpg" },
   { id: 30, label: "Custom Tattoo Vending Machine — Graduation Party", layout: "", filter: "graduations", image: "/images/tattoo-grad3.jpg" },
+  { id: 31, label: "Tattoo & Sticker Vending Machine — Graduation Party", layout: "", filter: "graduations", image: "/images/tattoo-modal1.jpg" },
+  { id: 32, label: "Custom Tattoo Machine Display — Graduation Party", layout: "", filter: "graduations", image: "/images/tattoo-modal2.jpg" },
+  { id: 33, label: "Custom Matchboxes — Engagement Party", layout: "", filter: "engagements", image: "/images/custom-matches-engagement.jpg" },
 ];
 
 const FILTERS = [
   { id: "all", label: "All Events" },
   { id: "weddings", label: "Weddings" },
+  { id: "engagements", label: "Engagements" },
   { id: "baby-showers", label: "Baby Showers" },
   { id: "birthdays", label: "Birthdays" },
   { id: "graduations", label: "Graduations" },
