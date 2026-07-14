@@ -104,7 +104,7 @@ export default function Gallery() {
                 {item.image ? (
                   item.image.endsWith('.mp4') ? (
                     <>
-                      <video src={item.image} preload="metadata" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                      <video src={item.image} poster={item.image.replace(/\.mp4$/i, '-poster.jpg')} preload="metadata" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
                       <div className="gallery-overlay" style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                         <span style={{ fontSize: '3rem', color: 'white', textShadow: '0 2px 8px rgba(0,0,0,0.3)' }}>▶</span>
                       </div>
@@ -152,7 +152,7 @@ export default function Gallery() {
             <div className="lightbox-img">
               {filtered[lightbox].image ? (
                 filtered[lightbox].image.endsWith('.mp4') ? (
-                  <video src={filtered[lightbox].image} style={{ width: '100%', height: 'auto', display: 'block' }} controls autoPlay muted loop />
+                  <video src={filtered[lightbox].image} poster={filtered[lightbox].image.replace(/\.mp4$/i, '-poster.jpg')} style={{ width: '100%', height: 'auto', display: 'block' }} controls autoPlay muted loop />
                 ) : (
                   <img src={filtered[lightbox].image} alt={filtered[lightbox].label} style={{ width: '100%', height: 'auto', display: 'block' }} />
                 )
