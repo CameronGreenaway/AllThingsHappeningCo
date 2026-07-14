@@ -51,7 +51,11 @@ export default function Home() {
 
       {/* ── VALUES BAR ── */}
       <div className="values-bar">
-        {VALUES.map(v => <span className="val-item" key={v}>{v}</span>)}
+        <div className="values-track">
+          {VALUES.map(v => <span className="val-item" key={v}>{v}</span>)}
+          {/* duplicate set so the mobile marquee loops seamlessly; hidden on desktop */}
+          {VALUES.map(v => <span className="val-item val-dup" key={`${v}-dup`} aria-hidden="true">{v}</span>)}
+        </div>
       </div>
 
       {/* ── FEATURED RENTALS ── */}
