@@ -204,6 +204,7 @@ export const SERVICES = [
     startingFrom: "Inquire",
     popular: false,
     imageLabel: "Custom Linen Signage Display",
+    mainImage: "/images/sign3.JPG",
     images: [
       "/images/sign1.JPG",
       "/images/sign2.JPG",
