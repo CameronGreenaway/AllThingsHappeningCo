@@ -72,7 +72,7 @@ export default function Home() {
                 <div className="r-card" style={{ height: '100%' }}>
                   <div className="r-card-img">
                     {s.mainImage || s.images?.length ? (
-                      <img src={s.mainImage || s.images[0]} alt={s.name} className="card r-card-photo" style={s.mainImageStyle} />
+                      <img src={s.mainImage || s.images[0]} alt={s.name} loading="lazy" decoding="async" className="card r-card-photo" style={s.mainImageStyle} />
                     ) : (
                       <ImagePlaceholder label={s.imageLabel} className="card" />
                     )}
@@ -175,7 +175,7 @@ export default function Home() {
                 <div className="p-card">
                   <div className="p-card-img">
                     {p.image ? (
-                      <img src={p.image} alt={p.name} style={{ objectFit: 'contain', objectPosition: p.imagePosition || 'center', width: '100%', height: '100%', display: 'block' }} />
+                      <img src={p.image} alt={p.name} loading="lazy" decoding="async" style={{ objectFit: 'contain', objectPosition: p.imagePosition || 'center', width: '100%', height: '100%', display: 'block' }} />
                     ) : (
                       <ImagePlaceholder label={p.imageLabel} />
                     )}

@@ -18,12 +18,12 @@ const GALLERY_ITEMS = [
   { id: 14, label: "Phone Booth — Birthday Party Setup", layout: "", filter: "birthdays", image: "/images/sign2.JPG" },
   { id: 15, label: "Baby Shower Station Table Display", layout: "", filter: "weddings", image: "/images/custom3.JPG" },
   { id: 16, label: "Build-A-Bear Hosted Session", layout: "", filter: "birthdays", image: "/images/backdrop1.JPG" },
-  { id: 17, label: "Baby Shower Onesie Decorating Demo", layout: "", filter: "baby-showers", image: "/images/Baby1.png" },
-  { id: 18, label: "Guests Creating at Baby Shower Station", layout: "", filter: "baby-showers", image: "/images/Baby2.png" },
-  { id: 19, label: "Baby Shower Crafting in Progress", layout: "", filter: "baby-showers", image: "/images/Baby3.png" },
+  { id: 17, label: "Baby Shower Onesie Decorating Demo", layout: "", filter: "baby-showers", image: "/images/Baby1.jpg" },
+  { id: 18, label: "Guests Creating at Baby Shower Station", layout: "", filter: "baby-showers", image: "/images/Baby2.jpg" },
+  { id: 19, label: "Baby Shower Crafting in Progress", layout: "", filter: "baby-showers", image: "/images/Baby3.jpg" },
   { id: 20, label: "Baby Shower Station Video Walkthrough", layout: "", filter: "baby-showers", image: "/images/CineBaby.mp4" },
-  { id: 21, label: "High-Top Tables Setup — Reception", layout: "", filter: "weddings", image: "/images/Tables1.png" },
-  { id: 22, label: "Modern Table Rental Display", layout: "", filter: "weddings", image: "/images/Tables2.png" },
+  { id: 21, label: "High-Top Tables Setup — Reception", layout: "", filter: "weddings", image: "/images/Tables1.jpg" },
+  { id: 22, label: "Modern Table Rental Display", layout: "", filter: "weddings", image: "/images/Tables2.jpg" },
   { id: 23, label: "Tattoo Vending Machine — Event Setup", layout: "", filter: "graduations", image: "/images/tattoo2.jpg" },
   { id: 24, label: "Custom Linen Signage — Elegant Display", layout: "", filter: "weddings", image: "/images/sign3.JPG" },
   { id: 25, label: "Custom Signage — Welcome Sign", layout: "", filter: "weddings", image: "/images/sign4.JPG" },
@@ -104,14 +104,14 @@ export default function Gallery() {
                 {item.image ? (
                   item.image.endsWith('.mp4') ? (
                     <>
-                      <video src={item.image} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                      <video src={item.image} preload="metadata" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
                       <div className="gallery-overlay" style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                         <span style={{ fontSize: '3rem', color: 'white', textShadow: '0 2px 8px rgba(0,0,0,0.3)' }}>▶</span>
                       </div>
                     </>
                   ) : (
                     <>
-                      <img src={item.image} alt={item.label} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                      <img src={item.image} alt={item.label} loading="lazy" decoding="async" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
                       <div className="gallery-overlay">
                         <span className="gallery-zoom">+</span>
                       </div>

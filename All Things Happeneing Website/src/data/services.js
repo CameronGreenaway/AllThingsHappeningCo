@@ -157,8 +157,8 @@ export const SERVICES = [
     popular: false,
     imageLabel: "High-Top Table Rental",
     images: [
-      "/images/Tables1.png",
-      "/images/Tables2.png",
+      "/images/Tables1.jpg",
+      "/images/Tables2.jpg",
     ],
     category: "decor",
   },
@@ -234,12 +234,12 @@ export const SERVICES = [
     startingFrom: "From $300",
     popular: true,
     imageLabel: "Baby Shower Onesie Decorating Station",
-    mainImage: "/images/Baby1.png",
+    mainImage: "/images/Baby1.jpg",
     images: [
       "/images/CineBaby.mp4",
-      "/images/Baby1.png",
-      "/images/Baby2.png",
-      "/images/Baby3.png",
+      "/images/Baby1.jpg",
+      "/images/Baby2.jpg",
+      "/images/Baby3.jpg",
     ],
     category: "celebration",
     packages: [
