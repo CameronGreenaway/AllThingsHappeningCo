@@ -69,7 +69,7 @@ export default function RentalModal({ service, onClose }) {
                       key={i}
                       src={src}
                       alt={`${service.name} — photo ${i + 1}`}
-                      className="modal-gallery-img"
+                      className={`modal-gallery-img${service.imageFit === 'contain' ? ' contain-photo' : ''}`}
                       style={{
                         width: '100%',
                         height: '100%',

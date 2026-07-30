@@ -72,7 +72,7 @@ export default function Home() {
                 <div className="r-card" style={{ height: '100%' }}>
                   <div className="r-card-img">
                     {s.mainImage || s.images?.length ? (
-                      <img src={s.mainImage || s.images[0]} alt={s.name} loading="lazy" decoding="async" className="card r-card-photo" style={s.mainImageStyle} />
+                      <img src={s.mainImage || s.images[0]} alt={s.name} loading="lazy" decoding="async" className={`card r-card-photo${s.imageFit === 'contain' ? ' contain-photo' : ''}`} style={s.mainImageStyle} />
                     ) : (
                       <ImagePlaceholder label={s.imageLabel} className="card" />
                     )}

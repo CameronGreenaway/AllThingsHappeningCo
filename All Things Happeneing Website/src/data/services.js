@@ -336,6 +336,9 @@ export const SERVICES = [
     startingFrom: "From $750",
     popular: false,
     imageLabel: "Image Coming Soon",
+    mainImage: "/images/image-coming-soon.png",
+    images: ["/images/image-coming-soon.png"],
+    imageFit: "contain",
     category: "kids",
   },
   {

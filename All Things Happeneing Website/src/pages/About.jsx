@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import AnimateIn from '../components/AnimateIn';
-import ImagePlaceholder from '../components/ImagePlaceholder';
 
 const BRAND_VALUES = [
   {
@@ -49,11 +48,15 @@ export default function About() {
         <div className="sec-inner">
           <div className="about-split">
             <AnimateIn>
-              <ImagePlaceholder
-                label="All Things Happening Co — Brand Photo"
-                className="tall"
-                style={{ aspectRatio: '3/4', maxWidth: '480px' }}
-              />
+              <div className="img-ph tall" style={{ aspectRatio: '3/4', maxWidth: '480px' }}>
+                <img
+                  src="/images/image-coming-soon.png"
+                  alt="All Things Happening Co — Brand Photo"
+                  loading="lazy"
+                  decoding="async"
+                  style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block' }}
+                />
+              </div>
             </AnimateIn>
             <AnimateIn delay={120}>
               <div className="sec-eye">Who We Are</div>
@@ -110,7 +113,15 @@ export default function About() {
           <AnimateIn delay={80}>
             <div className="team-card">
               <div className="team-photo">
-                <ImagePlaceholder label="Allie — Owner" className="square" />
+                <div className="img-ph square">
+                  <img
+                    src="/images/image-coming-soon.png"
+                    alt="Allie — Owner"
+                    loading="lazy"
+                    decoding="async"
+                    style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block' }}
+                  />
+                </div>
               </div>
               <div>
                 <div className="team-name">Allie</div>

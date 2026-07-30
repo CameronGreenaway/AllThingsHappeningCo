@@ -346,6 +346,12 @@ img { display: block; max-width: 100%; }
 }
 .r-card:hover .r-card-img .img-ph { transform: scale(1.03); }
 .r-card:hover .r-card-img .r-card-photo { transform: scale(calc(var(--img-zoom, 1) + 0.03)); }
+/* Full image visible & centered instead of cropped — used for "Image Coming Soon" placeholders */
+.contain-photo.r-card-photo,
+.contain-photo.modal-gallery-img {
+  object-fit: contain !important;
+  background: linear-gradient(135deg, #e8e5e1 0%, #d8d3cc 100%);
+}
 .r-card-body { padding: 1.8rem 2rem 2rem; }
 .r-card::after {
   content: ''; position: absolute;
