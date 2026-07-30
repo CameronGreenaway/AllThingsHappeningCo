@@ -100,6 +100,63 @@ img { display: block; max-width: 100%; }
   box-shadow: 0 0 0 2px rgba(216,149,155,0.25);
 }
 
+/* ── ANNOUNCEMENT POP-UP (mobile only — replaces the bar) ── */
+.ann-popup-overlay { display: none; }
+.ann-popup {
+  background: linear-gradient(160deg, var(--forest) 0%, var(--forest-dark) 100%);
+  width: min(360px, 100%);
+  padding: 2.6rem 2rem 2.2rem;
+  border-radius: 3px;
+  text-align: center;
+  position: relative;
+  box-shadow: var(--shadow-lg);
+}
+.ann-popup-close {
+  position: absolute; top: 0.9rem; right: 0.9rem;
+  background: none; border: none; color: rgba(244,243,241,0.5);
+  font-size: 1rem; line-height: 1; padding: 0.5rem;
+  transition: color 0.2s;
+}
+.ann-popup-close:hover { color: var(--cream); }
+.ann-popup-dot {
+  display: block; width: 7px; height: 7px; margin: 0 auto 1.2rem;
+  background: var(--rose); border-radius: 50%;
+  box-shadow: 0 0 0 4px rgba(216,149,155,0.18);
+}
+.ann-popup-eyebrow {
+  font-size: 0.62rem; font-weight: 700; letter-spacing: 0.24em;
+  text-transform: uppercase; color: rgba(244,243,241,0.55);
+  margin-bottom: 1rem;
+}
+.ann-popup-line {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.15rem; font-weight: 400; line-height: 1.65;
+  color: var(--text-light);
+  margin-bottom: 1.1rem;
+  padding: 0 0.2rem;
+}
+.ann-popup-line:last-of-type { margin-bottom: 1.9rem; }
+.ann-popup-highlight { color: var(--rose); font-weight: 600; }
+.ann-popup-btn { width: 100%; }
+
+@media (max-width: 768px) {
+  .ann-bar, .ann-tab { display: none !important; }
+  .ann-popup-overlay {
+    display: flex; align-items: center; justify-content: center;
+    position: fixed; inset: 0; z-index: 800;
+    background: rgba(36,53,48,0.6);
+    backdrop-filter: blur(3px);
+    padding: 1.5rem;
+    animation: ann-popup-fade 0.35s ease;
+  }
+  .ann-popup { animation: ann-popup-pop 0.45s cubic-bezier(0.22, 1, 0.36, 1); }
+}
+@keyframes ann-popup-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes ann-popup-pop {
+  from { opacity: 0; transform: scale(0.92) translateY(10px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
 /* ── NAVIGATION ── */
 .nav {
   position: fixed; left: 0; right: 0; z-index: 100;
