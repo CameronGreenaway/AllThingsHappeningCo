@@ -357,6 +357,9 @@ export const SERVICES = [
     startingFrom: "$300",
     popular: false,
     imageLabel: "Charcuterie & Food Cart Display",
+    mainImage: "/images/image-coming-soon.png",
+    images: ["/images/image-coming-soon.png"],
+    imageFit: "contain",
     category: "decor",
   },
   {
