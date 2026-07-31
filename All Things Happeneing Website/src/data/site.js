@@ -67,10 +67,10 @@ export const FOOTER_POLICIES = [
 export const INSTAGRAM_POSTS = [
   {
     id: "launch",
-    image: "/images/launch-poster.png",
+    image: "/images/insta1.jpg",
     url: "https://www.instagram.com/p/DYcpOHuRzNW/",
-    fit: "contain",
-    alt: "Welcome to the official launch of All Things Happening Co — Summer and Fall 2026 booking now open.",
+    // Square already, so the default crop suits it — no `fit` needed.
+    alt: "Coming soon flyers for All Things Happening Co, printed on vellum and fanned out.",
   },
 ];
 
