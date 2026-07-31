@@ -887,10 +887,9 @@ img { display: block; max-width: 100%; }
   padding: 2.5rem; max-width: 580px;
 }
 .team-photo { width: 140px; flex-shrink: 0; }
-/* Close-up headshot — square crop held near the top so the face stays centred */
+/* Headshot shown uncropped at its natural portrait ratio */
 .team-photo-img {
-  width: 100%; aspect-ratio: 1/1;
-  object-fit: cover; object-position: center top;
+  width: 100%; height: auto;
   display: block;
 }
 /* Brand monogram — shown whole (never cropped). Background is matched to the

@@ -35,6 +35,7 @@ const GALLERY_ITEMS = [
   { id: 31, label: "Tattoo & Sticker Vending Machine — Graduation Party", layout: "", filter: "graduations", image: "/images/tattoo-modal1.jpg" },
   { id: 32, label: "Custom Tattoo Machine Display — Graduation Party", layout: "", filter: "graduations", image: "/images/tattoo-modal2.jpg" },
   { id: 33, label: "Custom Matchboxes — Engagement Party", layout: "", filter: "engagements", image: "/images/custom-matches-engagement.jpg" },
+  { id: 34, label: "Custom Signage — Signature Drinks Bar Banner", layout: "", filter: "weddings", image: "/images/signage-ad1.jpg" },
 ];
 
 const FILTERS = [

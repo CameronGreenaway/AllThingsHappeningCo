@@ -218,6 +218,7 @@ export const SERVICES = [
       "/images/sign2.JPG",
       "/images/sign3.JPG",
       "/images/sign4.JPG",
+      "/images/signage-ad1.jpg",
     ],
     // Pan up so "Cameron & Allie" and the date stay in frame on the tall sign3 photo
     mainImageStyle: { "--img-pos": "center 35%" },
