@@ -215,7 +215,6 @@ export const SERVICES = [
     mainImage: "/images/sign3.JPG",
     images: [
       "/images/sign1.JPG",
-      "/images/sign2.JPG",
       "/images/sign3.JPG",
       "/images/sign4.JPG",
       "/images/signage-ad1.jpg",
@@ -353,6 +352,9 @@ export const SERVICES = [
   },
   {
     id: "charcuterie-cart",
+    // Withheld from the site until materials and licensing are in place.
+    // The listing is intact — flip this to false to bring it back everywhere.
+    hidden: true,
     tag: "Décor",
     name: "Food & Charcuterie Cart",
     shortDesc: "A beautiful cart rental for your food station — perfect for charcuterie displays, dessert tables, or signature cocktail setups.",
@@ -401,6 +403,10 @@ export const SERVICES = [
     category: "custom",
   },
 ];
+
+// Everything the site actually renders. SERVICES keeps every listing on file,
+// including ones flagged `hidden` that aren't bookable yet.
+export const VISIBLE_SERVICES = SERVICES.filter(s => !s.hidden);
 
 export const CATEGORIES = [
   { id: "all", label: "All" },

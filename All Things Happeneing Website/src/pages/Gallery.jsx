@@ -15,7 +15,6 @@ const GALLERY_ITEMS = [
   { id: 10, label: "Tattoo Machine Close-Up — Birthday Party", layout: "", filter: "birthdays", image: "/images/phone7.JPG" },
   { id: 12, label: "Drapery Backdrop — Graduation Celebration", layout: "", filter: ["graduations", "corporate"], image: "/images/backdrop3.JPG" },
   { id: 13, label: "Custom Cups & Napkins Flat Lay — Wedding", layout: "", filter: "weddings", image: "/images/custom2.JPG" },
-  { id: 14, label: "Phone Booth — Birthday Party Setup", layout: "", filter: "birthdays", image: "/images/sign2.JPG" },
   { id: 15, label: "Baby Shower Station Table Display", layout: "", filter: "weddings", image: "/images/custom3.JPG" },
   { id: 16, label: "Build-A-Bear Hosted Session", layout: "", filter: "birthdays", image: "/images/backdrop1.JPG" },
   { id: 17, label: "Baby Shower Onesie Decorating Demo", layout: "", filter: "baby-showers", image: "/images/Baby1.jpg" },

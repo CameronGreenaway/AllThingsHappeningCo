@@ -29,7 +29,9 @@ export const FOOTER_SERVICES = [
   { label: "Custom Signage", to: "/rentals#custom-signage" },
   { label: "Baby Shower Station", to: "/rentals#baby-shower" },
   { label: "Build-A-Bear Station", to: "/rentals#build-a-bear" },
-  { label: "Charcuterie Cart", to: "/rentals#charcuterie-cart" },
+  // Charcuterie Cart is hidden site-wide until it's bookable — see the
+  // `hidden` flag on that listing in services.js. Restore both together.
+  // { label: "Charcuterie Cart", to: "/rentals#charcuterie-cart" },
   { label: "Custom Accessories", to: "/rentals#custom-accessories" },
 ];
 

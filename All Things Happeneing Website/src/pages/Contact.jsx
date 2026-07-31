@@ -43,7 +43,7 @@ import { useLocation } from 'react-router-dom';
 import emailjs from '@emailjs/browser';
 import AnimateIn from '../components/AnimateIn';
 import { SITE, INQUIRY_TYPES, EVENT_TYPES, EMAILJS_CONFIG } from '../data/site';
-import { SERVICES } from '../data/services';
+import { SERVICES, VISIBLE_SERVICES } from '../data/services';
 
 const INITIAL_FORM = {
   name: '',
@@ -87,7 +87,7 @@ export default function Contact() {
     const params = new URLSearchParams(location.search);
     const serviceId = params.get('serviceId');
     if (serviceId) {
-      const service = SERVICES.find(s => s.id === serviceId);
+      const service = VISIBLE_SERVICES.find(s => s.id === serviceId);
       if (service && !form.items.includes(service.name)) {
         setForm(f => ({ ...f, items: [...f.items, service.name] }));
         setInquiryType(INQUIRY_TYPES.find(t => t.value === 'booking') || INQUIRY_TYPES[0]);
@@ -384,7 +384,7 @@ export default function Contact() {
                       <div className="form-group">
                         <label className="form-label">Items of Interest</label>
                         <div className="checkbox-grid" style={{ marginTop: '0.5rem' }}>
-                          {SERVICES.map(s => (
+                          {VISIBLE_SERVICES.map(s => (
                             <label className="checkbox-label" key={s.id}>
                               <input
                                 type="checkbox"

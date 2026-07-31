@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import AnimateIn from '../components/AnimateIn';
 import ImagePlaceholder from '../components/ImagePlaceholder';
-import { SERVICES, FEATURED } from '../data/services';
+import { VISIBLE_SERVICES, FEATURED } from '../data/services';
 import { PARTNERS } from '../data/partners';
 import { SITE, HOW_IT_WORKS, TESTIMONIALS, VALUES } from '../data/site';
 
@@ -22,7 +22,7 @@ const DecoSVG = ({ className }) => (
 );
 
 export default function Home() {
-  const featured = FEATURED.map(id => SERVICES.find(s => s.id === id)).filter(Boolean);
+  const featured = FEATURED.map(id => VISIBLE_SERVICES.find(s => s.id === id)).filter(Boolean);
 
   return (
     <>
