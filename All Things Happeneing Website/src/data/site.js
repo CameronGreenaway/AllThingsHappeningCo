@@ -51,6 +51,29 @@ export const FOOTER_POLICIES = [
   { label: "Privacy Policy", to: "/policies#privacy" },
 ];
 
+/* ── INSTAGRAM FEED (Home → "Follow Along") ──────────────────────
+   Add a post by dropping its image in /public/images and appending
+   one entry here — newest first. The grid renders only what's in
+   this list, so no empty placeholder tiles ever show.
+
+   image → local file (Instagram's own image URLs expire, so they
+           can't be linked directly)
+   url   → the post permalink; the tile links out to it
+   fit   → "cover" (default) crops to a square like Instagram's own
+           grid. Use "contain" for posters/graphics that would lose
+           text to a square crop — the tile background matches the
+           artwork so the letterboxing is invisible.
+   ──────────────────────────────────────────────────────────────── */
+export const INSTAGRAM_POSTS = [
+  {
+    id: "launch",
+    image: "/images/launch-poster.png",
+    url: "https://www.instagram.com/p/DYcpOHuRzNW/",
+    fit: "contain",
+    alt: "Welcome to the official launch of All Things Happening Co — Summer and Fall 2026 booking now open.",
+  },
+];
+
 export const VALUES = [
   "Full Customization",
   "Unique Experiences",

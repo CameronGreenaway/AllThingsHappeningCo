@@ -3,7 +3,7 @@ import AnimateIn from '../components/AnimateIn';
 import ImagePlaceholder from '../components/ImagePlaceholder';
 import { VISIBLE_SERVICES, FEATURED } from '../data/services';
 import { PARTNERS } from '../data/partners';
-import { SITE, HOW_IT_WORKS, TESTIMONIALS, VALUES } from '../data/site';
+import { SITE, HOW_IT_WORKS, TESTIMONIALS, VALUES, INSTAGRAM_POSTS } from '../data/site';
 
 const DecoSVG = ({ className }) => (
   <svg className={`hero-deco ${className}`} viewBox="0 0 240 580" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -204,11 +204,30 @@ export default function Home() {
             </h2>
           </AnimateIn>
           <AnimateIn delay={80}>
-            <div className="insta-grid">
-              {[...Array(8)].map((_, i) => (
-                <div className="insta-tile" key={i}>
-                  <ImagePlaceholder label={`Instagram Post ${i + 1}`} />
-                </div>
+            {/* Renders only real posts from INSTAGRAM_POSTS — no empty
+                placeholder tiles. Until there are enough posts to fill a
+                row, `sparse` centres them at a sensible size instead of
+                stranding one tile against three empty columns.
+                For a placeholder grid again, see ImagePlaceholder usage
+                in the rental cards above. */}
+            <div className={`insta-grid${INSTAGRAM_POSTS.length < 4 ? ' sparse' : ''}`}>
+              {INSTAGRAM_POSTS.map(p => (
+                <a
+                  className="insta-tile"
+                  key={p.id}
+                  href={p.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="View this post on Instagram"
+                >
+                  <img
+                    src={p.image}
+                    alt={p.alt}
+                    loading="lazy"
+                    decoding="async"
+                    className={p.fit === 'contain' ? 'insta-img contain-img' : 'insta-img'}
+                  />
+                </a>
               ))}
             </div>
           </AnimateIn>
