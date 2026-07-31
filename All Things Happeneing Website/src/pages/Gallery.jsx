@@ -11,7 +11,7 @@ const GALLERY_ITEMS = [
   { id: 5, label: "Baby Shower Onesie Station Full Setup", layout: "wide", filter: "weddings", image: "/images/phone2.JPG" },
   { id: 6, label: "Build-A-Bear Station — Kids Birthday", layout: "", filter: "birthdays", image: "/images/phone3.JPG" },
   { id: 8, label: "Custom Linen Signage — Wedding Reception", layout: "tall", filter: "weddings", image: "/images/sign1.JPG" },
-  { id: 9, label: "Phone Booth Detail Shot — Baby Shower", layout: "", filter: "weddings", image: "/images/phone6.JPG" },
+  { id: 9, label: "Audio Guest Book Phone Booth — Detail Shot", layout: "", filter: "weddings", image: "/images/phone-gallery1.jpg" },
   { id: 10, label: "Tattoo Machine Close-Up — Birthday Party", layout: "", filter: "birthdays", image: "/images/phone7.JPG" },
   { id: 12, label: "Drapery Backdrop — Graduation Celebration", layout: "", filter: ["graduations", "corporate"], image: "/images/backdrop3.JPG" },
   { id: 13, label: "Custom Cups & Napkins Flat Lay — Wedding", layout: "", filter: "weddings", image: "/images/custom2.JPG" },

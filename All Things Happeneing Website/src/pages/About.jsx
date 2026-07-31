@@ -48,13 +48,12 @@ export default function About() {
         <div className="sec-inner">
           <div className="about-split">
             <AnimateIn>
-              <div className="img-ph tall" style={{ aspectRatio: '3/4', maxWidth: '480px' }}>
+              <div className="about-brand-photo" style={{ aspectRatio: '3/4', maxWidth: '480px' }}>
                 <img
-                  src="/images/image-coming-soon.png"
-                  alt="All Things Happening Co — Brand Photo"
+                  src="/images/brand-photo.jpg"
+                  alt="All Things Happening Co"
                   loading="lazy"
                   decoding="async"
-                  style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block' }}
                 />
               </div>
             </AnimateIn>
@@ -113,15 +112,13 @@ export default function About() {
           <AnimateIn delay={80}>
             <div className="team-card">
               <div className="team-photo">
-                <div className="img-ph square">
-                  <img
-                    src="/images/image-coming-soon.png"
-                    alt="Allie — Owner"
-                    loading="lazy"
-                    decoding="async"
-                    style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block' }}
-                  />
-                </div>
+                <img
+                  src="/images/allie-headshot.jpg"
+                  alt="Allie — Owner"
+                  loading="lazy"
+                  decoding="async"
+                  className="team-photo-img"
+                />
               </div>
               <div>
                 <div className="team-name">Allie</div>

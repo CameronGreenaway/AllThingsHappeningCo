@@ -75,7 +75,7 @@ const FAQ_GROUPS = [
       },
       {
         q: 'What tattoos/stickers go in the vending machine?',
-        a: 'Everything in the vending machine is custom-designed for your event. We\'ll work with you to create designs that match your theme, colors, and aesthetic. Quarters are included.',
+        a: 'Everything in the vending machine is custom-designed for your event. We\'ll work with you to create designs that match your theme, colors, and aesthetic. The machine takes two quarters per turn, and all quarters are included.',
       },
       {
         q: 'Can I see photos of previous setups?',

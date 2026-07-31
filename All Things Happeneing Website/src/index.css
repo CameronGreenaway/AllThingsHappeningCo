@@ -527,8 +527,8 @@ img { display: block; max-width: 100%; }
   aspect-ratio: 16 / 9;
 }
 @media (max-width: 600px) {
-  /* On mobile: one image per row, shown in FULL (no cropping/face-zoom),
-     sized to fit the width, capped so the title & description stay prominent. */
+  /* On mobile: one image per row, keeping the same uniform square crop as
+     desktop so every photo in a modal lines up at one consistent size. */
   .modal-gallery {
     grid-template-columns: 1fr;
     gap: 0.9rem;
@@ -537,11 +537,9 @@ img { display: block; max-width: 100%; }
   }
   .modal-gallery-img,
   .modal-gallery-img:only-child {
-    aspect-ratio: auto !important;
+    aspect-ratio: 1 !important;
     width: 100% !important;
     height: auto !important;
-    max-height: 65vh;
-    object-fit: contain !important;
     min-height: 0 !important;
     grid-column: auto !important;
     background: rgba(130,150,114,0.06);
@@ -889,6 +887,24 @@ img { display: block; max-width: 100%; }
   padding: 2.5rem; max-width: 580px;
 }
 .team-photo { width: 140px; flex-shrink: 0; }
+/* Close-up headshot — square crop held near the top so the face stays centred */
+.team-photo-img {
+  width: 100%; aspect-ratio: 1/1;
+  object-fit: cover; object-position: center top;
+  display: block;
+}
+/* Brand monogram — shown whole (never cropped). Background is matched to the
+   flat pink baked into the artwork so the letterboxed edges read as seamless. */
+.about-brand-photo {
+  width: 100%; overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+  background: #E8BAD7;
+}
+.about-brand-photo img {
+  width: 100%; height: 100%;
+  object-fit: contain; object-position: center;
+  display: block;
+}
 .team-name {
   font-family: 'Cormorant Garamond', serif;
   font-size: 1.6rem; font-weight: 500; color: var(--forest); margin-bottom: 0.2rem;
