@@ -100,6 +100,53 @@ img { display: block; max-width: 100%; }
   box-shadow: 0 0 0 2px rgba(216,149,155,0.25);
 }
 
+/* ── LAUNCH POSTER POP-UP (temporary — shown on every breakpoint) ──
+   Paired with the LAUNCH_POSTER flag in AnnouncementBar.jsx. */
+.launch-overlay {
+  position: fixed; inset: 0; z-index: 900;
+  background: rgba(36,53,48,0.72);
+  backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: center;
+  padding: 1.5rem 1.25rem;
+  overflow-y: auto;
+  animation: launch-fade 0.4s ease;
+}
+.launch-card {
+  position: relative;
+  margin: auto;
+  /* 56vh keeps the 4:5 poster + button inside short viewports without
+     letterboxing — the poster is sized by width and height follows. */
+  width: min(440px, 56vh);
+  max-width: 100%;
+  display: flex; flex-direction: column; align-items: center; gap: 1.1rem;
+  animation: launch-pop 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.launch-poster {
+  display: block; width: 100%; height: auto;
+  border-radius: 3px;
+  box-shadow: var(--shadow-lg);
+}
+.launch-close {
+  position: absolute; top: 0.65rem; right: 0.65rem; z-index: 2;
+  width: 34px; height: 34px;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(36,53,48,0.55);
+  border: 1px solid rgba(244,243,241,0.28);
+  border-radius: 50%;
+  color: var(--cream); font-size: 0.8rem; line-height: 1;
+  transition: var(--transition);
+}
+.launch-close:hover {
+  background: rgba(36,53,48,0.9);
+  border-color: rgba(244,243,241,0.55);
+}
+.launch-enter { width: 100%; max-width: 280px; text-align: center; }
+@keyframes launch-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes launch-pop {
+  from { opacity: 0; transform: scale(0.94) translateY(12px); }
+  to { opacity: 1; transform: none; }
+}
+
 /* ── ANNOUNCEMENT POP-UP (mobile only — replaces the bar) ── */
 .ann-popup-overlay { display: none; }
 .ann-popup {

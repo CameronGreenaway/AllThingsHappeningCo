@@ -1,10 +1,88 @@
 import { useState, useEffect } from 'react';
 
+/* ─────────────────────────────────────────────────────────────
+   LAUNCH MODE — temporary.
+
+   While true, the launch poster shows as a pop-up on every screen
+   size and BOTH the desktop banner and the mobile announcement
+   pop-up are suppressed.
+
+   To go back to the normal announcement everywhere, set this to
+   false. Nothing else needs to change — the previous behaviour is
+   still here, untouched, in <StandardAnnouncement>. Layout.jsx
+   imports this flag so the nav spacing follows automatically.
+   ───────────────────────────────────────────────────────────── */
+export const LAUNCH_POSTER = true;
+
+const POSTER_SRC = '/images/launch-poster.png';
+// Deliberately a different key from BAR_KEY: visitors who already
+// dismissed the old announcement should still see the launch poster.
+const POSTER_KEY = 'ath_launch_poster_dismissed';
+
 const BAR_KEY = 'ath_bar_dismissed';
 const FOLD_AT = 60;
 const MOBILE_AT = 768;
 
 export default function AnnouncementBar({ onDismiss }) {
+  return LAUNCH_POSTER
+    ? <LaunchPoster onDismiss={onDismiss} />
+    : <StandardAnnouncement onDismiss={onDismiss} />;
+}
+
+/* ── Launch-day poster pop-up (mobile + desktop) ── */
+function LaunchPoster({ onDismiss }) {
+  // Start hidden so returning visitors never get a flash of the poster
+  // before localStorage is read.
+  const [dismissed, setDismissed] = useState(true);
+
+  useEffect(() => {
+    if (!localStorage.getItem(POSTER_KEY)) setDismissed(false);
+  }, []);
+
+  const dismiss = () => {
+    setDismissed(true);
+    localStorage.setItem(POSTER_KEY, '1');
+    onDismiss?.();
+  };
+
+  useEffect(() => {
+    if (dismissed) return;
+    const onKey = (e) => { if (e.key === 'Escape') dismiss(); };
+    document.addEventListener('keydown', onKey);
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.removeEventListener('keydown', onKey);
+      document.body.style.overflow = '';
+    };
+  }, [dismissed]);
+
+  if (dismissed) return null;
+
+  return (
+    <div
+      className="launch-overlay"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Official launch announcement"
+      onClick={(e) => { if (e.target === e.currentTarget) dismiss(); }}
+    >
+      <div className="launch-card">
+        <button className="launch-close" onClick={dismiss} aria-label="Close announcement">✕</button>
+        <img
+          className="launch-poster"
+          src={POSTER_SRC}
+          /* All the poster's information also lives here, since it is
+             otherwise locked inside the image for screen readers. */
+          alt="Welcome to the official launch of All Things Happening Co. Summer and Fall 2026 booking now open — reserve your date today. Pittsburgh and 50-mile radius. Instagram: allthingshappeningco. Email: allthingshappeningco@gmail.com."
+        />
+        <button className="btn-solid launch-enter" onClick={dismiss}>Continue to Site</button>
+      </div>
+    </div>
+  );
+}
+
+/* ── Normal announcement: desktop banner + mobile pop-up ── */
+function StandardAnnouncement({ onDismiss }) {
   const [dismissed, setDismissed] = useState(false);
   const [folded, setFolded] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= MOBILE_AT);

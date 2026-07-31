@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
-import AnnouncementBar from './AnnouncementBar';
+import AnnouncementBar, { LAUNCH_POSTER } from './AnnouncementBar';
 import Nav from './Nav';
 import Footer from './Footer';
 import FloatingCTA from './FloatingCTA';
@@ -24,9 +24,10 @@ export default function Layout() {
     return () => window.removeEventListener('resize', onResize);
   }, []);
 
-  // On mobile the bar is replaced by a pop-up (doesn't push content down),
-  // so the nav shouldn't reserve space for it the way it does on desktop.
-  const topOffset = (barVisible && !isMobile) ? BAR_H : 0;
+  // The nav only reserves space for the top bar when that bar actually
+  // occupies the page. It doesn't on mobile (replaced by a pop-up), and it
+  // doesn't in launch mode (replaced by the poster pop-up on every size).
+  const topOffset = (barVisible && !isMobile && !LAUNCH_POSTER) ? BAR_H : 0;
   const mainPad = topOffset + NAV_H;
 
   return (
