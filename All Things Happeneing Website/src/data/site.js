@@ -56,21 +56,68 @@ export const FOOTER_POLICIES = [
    one entry here — newest first. The grid renders only what's in
    this list, so no empty placeholder tiles ever show.
 
-   image → local file (Instagram's own image URLs expire, so they
-           can't be linked directly)
-   url   → the post permalink; the tile links out to it
-   fit   → "cover" (default) crops to a square like Instagram's own
-           grid. Use "contain" for posters/graphics that would lose
-           text to a square crop — the tile background matches the
-           artwork so the letterboxing is invisible.
+   Every tile opens the profile (SITE.instagramUrl) in a new tab
+   rather than a post permalink, so nothing breaks when a post is
+   edited or removed.
+
+   The grid runs 5 across, so keep the count a multiple of 5 to
+   avoid a short final row. Tiles are 3:4 and the images are cropped
+   to match, so they fill without distortion. For an odd one that a
+   3:4 crop would clip, set fit: "contain" on its entry.
+
+   alt → describes the photo; it becomes the link's label, so write
+         it as a description of the image, not of the link.
    ──────────────────────────────────────────────────────────────── */
 export const INSTAGRAM_POSTS = [
   {
     id: "launch",
     image: "/images/insta1.jpg",
-    url: "https://www.instagram.com/p/DYcpOHuRzNW/",
-    // Square already, so the default crop suits it — no `fit` needed.
     alt: "Coming soon flyers for All Things Happening Co, printed on vellum and fanned out.",
+  },
+  {
+    id: "handle",
+    image: "/images/insta2.jpg",
+    alt: "Allthingshappeningco written across a soft pink background.",
+  },
+  {
+    id: "tattoo-machine",
+    image: "/images/insta3.jpg",
+    alt: "Tattoo and sticker vending machine stocked with custom bride and groom designs.",
+  },
+  {
+    id: "custom-cup",
+    image: "/images/insta4.jpg",
+    alt: "A cocktail in a custom printed cup reading The Greenaways.",
+  },
+  {
+    id: "phone-booth",
+    image: "/images/insta5.jpg",
+    alt: "The white vintage telephone booth prop set up on a lawn.",
+  },
+  {
+    id: "guestbook",
+    image: "/images/insta6.jpg",
+    alt: "A guest in a US Army veteran cap smiling while leaving a message on the audio guest book phone.",
+  },
+  {
+    id: "baby-shower",
+    image: "/images/insta7.jpg",
+    alt: "A baby shower station dressed in pink drapery with onesies hanging on a rack.",
+  },
+  {
+    id: "owner",
+    image: "/images/insta8.jpg",
+    alt: "Allie, owner of All Things Happening Co, in front of ivory drapery.",
+  },
+  {
+    id: "custom-mirror",
+    image: "/images/insta9.jpg",
+    alt: "A custom arched wedding mirror etched with Cam and Allie, draped with a lace veil.",
+  },
+  {
+    id: "favors",
+    image: "/images/insta10.jpg",
+    alt: "Custom labelled bottles and fresh limes arranged on a tiered stand.",
   },
 ];
 

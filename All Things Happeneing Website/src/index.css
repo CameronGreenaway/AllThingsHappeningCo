@@ -730,22 +730,27 @@ img { display: block; max-width: 100%; }
 
 /* ── INSTAGRAM SECTION ── */
 .insta-sec { padding: 6.5rem 2rem; background: var(--cream); }
+/* Capped well under the 1200px section width: at full width the tiles
+   would tower over the page, and the source images are only ~280px
+   wide so they would upscale badly. */
 .insta-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 3px;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 6px;
+  max-width: 880px;
+  margin: 0 auto;
 }
 /* Fewer posts than fill a row: centre them at a readable size rather
-   than stretching one tile across a quarter of the page. */
+   than stretching one tile across a fifth of the page. */
 .insta-grid.sparse {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 3px;
+  gap: 6px;
 }
-.insta-grid.sparse .insta-tile { width: min(300px, 100%); }
+.insta-grid.sparse .insta-tile { width: min(220px, 100%); }
 .insta-tile {
-  aspect-ratio: 1;
+  aspect-ratio: 3 / 4;
   overflow: hidden;
   display: block;
   position: relative;
@@ -1261,7 +1266,8 @@ img { display: block; max-width: 100%; }
   .floating-cta { display: block; }
   .gallery-grid { grid-template-columns: repeat(2, 1fr); }
   .gallery-item.wide { grid-column: span 1; }
-  .insta-grid { grid-template-columns: repeat(2, 1fr); }
+  /* Stay 5 across so the 10 tiles keep filling exactly two rows */
+  .insta-grid { gap: 4px; }
   .form-row { grid-template-columns: 1fr; }
   .area-stats { grid-template-columns: 1fr 1fr; }
   .team-card { flex-direction: column; }
@@ -1276,6 +1282,9 @@ img { display: block; max-width: 100%; }
   .footer-grid { grid-template-columns: 1fr; }
   .gallery-grid { grid-template-columns: 1fr; }
   .gallery-item.tall { grid-row: span 1; }
+  /* Five across gets too small to read on a phone; two still divides
+     the 10 tiles evenly. */
+  .insta-grid { grid-template-columns: repeat(2, 1fr); gap: 6px; }
   .values-bar {
     overflow: hidden;
     padding: 0.35rem 0;

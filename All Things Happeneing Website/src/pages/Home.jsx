@@ -207,22 +207,22 @@ export default function Home() {
             {/* Renders only real posts from INSTAGRAM_POSTS — no empty
                 placeholder tiles. Until there are enough posts to fill a
                 row, `sparse` centres them at a sensible size instead of
-                stranding one tile against three empty columns.
+                stranding one tile against four empty columns.
                 For a placeholder grid again, see ImagePlaceholder usage
                 in the rental cards above. */}
-            <div className={`insta-grid${INSTAGRAM_POSTS.length < 4 ? ' sparse' : ''}`}>
+            <div className={`insta-grid${INSTAGRAM_POSTS.length < 5 ? ' sparse' : ''}`}>
               {INSTAGRAM_POSTS.map(p => (
                 <a
                   className="insta-tile"
                   key={p.id}
-                  href={p.url}
+                  href={SITE.instagramUrl}
                   target="_blank"
                   rel="noreferrer"
-                  aria-label="View this post on Instagram"
+                  aria-label={`${p.alt} Opens ${SITE.instagram} on Instagram in a new tab.`}
                 >
                   <img
                     src={p.image}
-                    alt={p.alt}
+                    alt=""
                     loading="lazy"
                     decoding="async"
                     className={p.fit === 'contain' ? 'insta-img contain-img' : 'insta-img'}
