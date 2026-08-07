@@ -184,14 +184,17 @@ export const SERVICES = [
     startingFrom: "Inquire",
     popular: false,
     imageLabel: "Custom Wedding Mirror",
-    mainImage: "/images/custom-mirror-ad1.jpg",
+    // Cropped to 4:3 so the mirror and veil fill the card with no dead space.
+    // Alternate framing kept on hand: custom-mirror-ad2-arch.jpg is the same
+    // photo cropped tight on the arch — swap the filename here to use it.
+    mainImage: "/images/custom-mirror-ad2.jpg",
     images: [
-      "/images/custom-mirror-ad1.jpg",
+      "/images/custom-mirror-modal2.jpg",
       "/images/Custom_Mirrors.JPG",
     ],
-    // Both mirror photos are tall portraits — pan up so the arch and the
-    // etched names stay inside the square/4:3 crops
-    mainImageStyle: { "--img-pos": "center 30%" },
+    // Both are tall portraits — pan up so the etched names stay in the square
+    // crop on the first, and faces on the second
+    imagePositions: ["center 12%", "center 30%"],
     category: "custom",
   },
   {
@@ -417,4 +420,4 @@ export const CATEGORIES = [
   { id: "custom", label: "Custom" },
 ];
 
-export const FEATURED = ["phone-booth", "tattoo-vending", "baby-shower", "build-a-bear", "drapery", "custom-accessories"];
+export const FEATURED = ["phone-booth", "tattoo-vending", "baby-shower", "custom-mirrors", "drapery", "custom-accessories"];

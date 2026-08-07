@@ -75,7 +75,7 @@ export default function RentalModal({ service, onClose }) {
                         height: '100%',
                         objectFit: 'cover',
                         display: 'block',
-                        objectPosition: service.mainImageStyle?.['--img-pos'] || 'center',
+                        objectPosition: service.imagePositions?.[i] || service.mainImageStyle?.['--img-pos'] || 'center',
                       }}
                       onClick={() => setZoomed(src)}
                     />
