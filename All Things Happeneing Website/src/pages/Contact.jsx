@@ -43,7 +43,9 @@ import { useLocation } from 'react-router-dom';
 import emailjs from '@emailjs/browser';
 import AnimateIn from '../components/AnimateIn';
 import { SITE, INQUIRY_TYPES, EVENT_TYPES, EMAILJS_CONFIG } from '../data/site';
-import { SERVICES, VISIBLE_SERVICES } from '../data/services';
+import { VISIBLE_SERVICES } from '../data/services';
+import { buildQuote, payableOptions, serviceByName, money, QUOTE_ONLY_SERVICES, PER_DAY_SERVICES } from '../data/quote';
+import BookingPayment from '../components/BookingPayment';
 
 const INITIAL_FORM = {
   name: '',
@@ -55,9 +57,9 @@ const INITIAL_FORM = {
   eventType: '',
   guestCount: '',
   items: [],
-  babyShowerPackage: '',
-  tableSize: '',
-  phoneBoothPackage: '',
+  // { [serviceId]: { option, qty, days } }
+  selections: {},
+  shipZip: '',
   message: '',
 };
 
@@ -68,6 +70,8 @@ export default function Contact() {
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
   const [error, setError] = useState('');
+  const [payAmount, setPayAmount] = useState(0);
+  const [paidAmount, setPaidAmount] = useState(0);
 
   useEffect(() => {
     if (location.hash) {
@@ -95,12 +99,28 @@ export default function Contact() {
     }
   }, [location.search]);
 
-  const babyShowerService = SERVICES.find(s => s.id === 'baby-shower');
-  const isBabyShowerSelected = form.items.includes('Baby Shower Station');
-  const tablesService = SERVICES.find(s => s.id === 'tables');
-  const isTablesSelected = form.items.includes('Table Rentals');
-  const phoneBoothService = SERVICES.find(s => s.id === 'phone-booth');
-  const isPhoneBoothSelected = form.items.includes('Audio Guest Book Phone Booth');
+  // Booking Request and General Question collect the same details; only
+  // Booking Request can take money.
+  const isBookingForm = inquiryType.value === 'booking' || inquiryType.value === 'question';
+  const canPay = inquiryType.value === 'booking';
+
+  const chosenServices = form.items.map(serviceByName).filter(Boolean);
+  const quote = buildQuote(form.items, form.selections, form.shipZip);
+  const needsShipZip = quote.lines.some(l => l.payInFull) || /ZIP/.test(quote.blockers.join());
+
+  const setSelection = (serviceId, patch) => setForm(f => ({
+    ...f,
+    selections: { ...f.selections, [serviceId]: { ...f.selections[serviceId], ...patch } },
+  }));
+
+  // Keep the amount inside [minimum due, order total] as items change.
+  useEffect(() => {
+    if (!quote.payable) return;
+    setPayAmount(prev => {
+      const start = prev || quote.minDue;
+      return Math.min(quote.total, Math.max(quote.minDue, start));
+    });
+  }, [quote.minDue, quote.total, quote.payable]);
 
   const isConfigured = EMAILJS_CONFIG.serviceId !== 'YOUR_EMAILJS_SERVICE_ID';
 
@@ -115,20 +135,21 @@ export default function Contact() {
     }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e, paidNow) => {
     e.preventDefault();
     setError('');
+    // setPaidAmount has not flushed when PayPal calls straight through,
+    // so the captured figure is passed in directly.
+    const paid = paidNow ?? paidAmount;
 
-    let itemsText = form.items.length ? form.items.join(', ') : 'None specified';
-    if (isBabyShowerSelected && form.babyShowerPackage) {
-      itemsText = itemsText.replace('Baby Shower Station', `Baby Shower Station (${form.babyShowerPackage})`);
-    }
-    if (isTablesSelected && form.tableSize) {
-      itemsText = itemsText.replace('Table Rentals', `Table Rentals (${form.tableSize})`);
-    }
-    if (isPhoneBoothSelected && form.phoneBoothPackage) {
-      itemsText = itemsText.replace('Audio Guest Book Phone Booth', `Audio Guest Book Phone Booth (${form.phoneBoothPackage})`);
-    }
+    // Priced lines read back exactly as quoted; anything still awaiting a
+    // consultation is listed plainly so nothing looks like a firm price.
+    const quoted = quote.lines.map(l => `${l.label}${l.detail ? ` (${l.detail})` : ''} — ${money(l.amount)}`);
+    const unpriced = form.items.filter(n => !quote.lines.some(l => l.label.startsWith(n)));
+    const itemsText = [
+      ...quoted,
+      ...unpriced.map(n => `${n} — quote pending`),
+    ].join('; ') || 'None specified';
 
     const params = {
       subject_prefix: inquiryType.prefix,
@@ -142,6 +163,10 @@ export default function Contact() {
       event_type: form.eventType || 'N/A',
       guest_count: form.guestCount || 'Not specified',
       items: itemsText,
+      order_total: quote.total ? money(quote.total) : 'N/A',
+      shipping: quote.shipping ? `${money(quote.shipCost)} (USPS zone ${quote.shipping.zone}, estimated)` : 'N/A',
+      amount_paid: paid ? money(paid) : 'Not paid online',
+      balance_due: paid ? money(Math.max(0, quote.total - paid)) : 'N/A',
       message: form.message,
     };
 
@@ -329,8 +354,8 @@ export default function Contact() {
                     />
                   </div>
 
-                  {/* Booking-specific fields */}
-                  {inquiryType.value === 'booking' && (
+                  {/* Event details — shown for Booking Request and General Question */}
+                  {isBookingForm && (
                     <>
                       <div className="form-row">
                         <div className="form-group">
@@ -397,68 +422,95 @@ export default function Contact() {
                         </div>
                       </div>
 
-                      {isBabyShowerSelected && babyShowerService?.packages && (
-                        <div className="form-group">
-                          <label className="form-label">Baby Shower Station Package *</label>
-                          <div className="form-select-wrap">
-                            <select
-                              className="form-select"
-                              required
-                              value={form.babyShowerPackage}
-                              onChange={set('babyShowerPackage')}
-                            >
-                              <option value="">Select a package…</option>
-                              {babyShowerService.packages.map(pkg => (
-                                <option key={pkg.id} value={pkg.name}>
-                                  {pkg.name} — {pkg.price}
-                                </option>
-                              ))}
-                            </select>
+                      {chosenServices.map(svc => {
+                        const opts = payableOptions(svc);
+                        const sel = form.selections[svc.id] || {};
+                        const perDay = PER_DAY_SERVICES.includes(svc.id);
+
+                        // Custom work has no list price — say so instead of
+                        // showing an empty dropdown.
+                        if (QUOTE_ONLY_SERVICES.includes(svc.id) || !opts.length) {
+                          return (
+                            <div className="quote-only-note" key={svc.id}>
+                              <strong>{svc.name}</strong> is priced after a quick
+                              consultation. Send this through and we'll follow up
+                              with a quote and a deposit link.
+                            </div>
+                          );
+                        }
+
+                        return (
+                          <div className="form-group" key={svc.id}>
+                            <label className="form-label">{svc.name} — Option *</label>
+                            <div className="form-select-wrap">
+                              <select
+                                className="form-select"
+                                required
+                                value={sel.option || ''}
+                                onChange={e => setSelection(svc.id, { option: e.target.value })}
+                              >
+                                <option value="">Select an option…</option>
+                                {opts.map(o => (
+                                  <option key={o.id} value={o.id}>
+                                    {o.label} — {o.priceLabel}
+                                  </option>
+                                ))}
+                              </select>
+                            </div>
+
+                            {perDay && sel.option && (
+                              <div className="form-row" style={{ marginTop: '0.8rem' }}>
+                                <div className="form-group">
+                                  <label className="form-label">How many? *</label>
+                                  <input
+                                    className="form-input"
+                                    type="number"
+                                    min="1"
+                                    required
+                                    value={sel.qty || ''}
+                                    onChange={e => setSelection(svc.id, { qty: e.target.value })}
+                                    placeholder="1"
+                                  />
+                                </div>
+                                <div className="form-group">
+                                  <label className="form-label">How many days? *</label>
+                                  <input
+                                    className="form-input"
+                                    type="number"
+                                    min="1"
+                                    required
+                                    value={sel.days || ''}
+                                    onChange={e => setSelection(svc.id, { days: e.target.value })}
+                                    placeholder="1"
+                                  />
+                                </div>
+                              </div>
+                            )}
                           </div>
+                        );
+                      })}
+
+                      {needsShipZip && (
+                        <div className="form-group">
+                          <label className="form-label">Shipping ZIP Code *</label>
+                          <input
+                            className="form-input"
+                            type="text"
+                            inputMode="numeric"
+                            pattern="\d{5}"
+                            maxLength={5}
+                            required
+                            value={form.shipZip}
+                            onChange={e => setForm(f => ({ ...f, shipZip: e.target.value.replace(/\D/g, '') }))}
+                            placeholder="15106"
+                          />
+                          <p className="form-hint">
+                            The DIY Box ships USPS Ground Advantage. We use this to
+                            work out postage.
+                          </p>
                         </div>
                       )}
 
-                      {isTablesSelected && tablesService?.pricing && (
-                        <div className="form-group">
-                          <label className="form-label">Table Size *</label>
-                          <div className="form-select-wrap">
-                            <select
-                              className="form-select"
-                              required
-                              value={form.tableSize}
-                              onChange={set('tableSize')}
-                            >
-                              <option value="">Select a size…</option>
-                              {tablesService.pricing.map((option, idx) => (
-                                <option key={idx} value={option.label}>
-                                  {option.label} — {option.price}
-                                </option>
-                              ))}
-                            </select>
-                          </div>
-                        </div>
-                      )}
-
-                      {isPhoneBoothSelected && phoneBoothService?.packages && (
-                        <div className="form-group">
-                          <label className="form-label">Phone Booth Package *</label>
-                          <div className="form-select-wrap">
-                            <select
-                              className="form-select"
-                              required
-                              value={form.phoneBoothPackage}
-                              onChange={set('phoneBoothPackage')}
-                            >
-                              <option value="">Select a package…</option>
-                              {phoneBoothService.packages.filter(pkg => pkg.id !== 'phone-additional').map(pkg => (
-                                <option key={pkg.id} value={pkg.name}>
-                                  {pkg.name} — {pkg.price}
-                                </option>
-                              ))}
-                            </select>
-                          </div>
-                        </div>
-                      )}
                     </>
                   )}
 
@@ -497,6 +549,23 @@ export default function Contact() {
                       style={{ minHeight: inquiryType.value === 'review' ? 160 : 120 }}
                     />
                   </div>
+
+                  {/* Payment — Booking Request only */}
+                  {canPay && form.items.length > 0 && (
+                    <BookingPayment
+                      quote={quote}
+                      amount={payAmount}
+                      setAmount={setPayAmount}
+                      disabled={sending}
+                      onPaid={(details) => {
+                        setPaidAmount(payAmount);
+                        // Record the booking by the same route as any other
+                        // enquiry, stamped with what was actually captured.
+                        handleSubmit({ preventDefault: () => {} }, payAmount);
+                        return details;
+                      }}
+                    />
+                  )}
 
                   {error && <div className="form-error">{error}</div>}
 

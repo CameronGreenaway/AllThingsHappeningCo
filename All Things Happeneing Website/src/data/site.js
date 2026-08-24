@@ -186,6 +186,15 @@ export const INQUIRY_TYPES = [
   { value: "review", label: "Leave a Review", prefix: "[REVIEW]" },
 ];
 
+/* PayPal Business — paste your live Client ID here to switch payments on.
+   Dashboard → Apps & Credentials → Live → your app → Client ID.
+   Until this is filled in the booking form still works; it just shows the
+   deposit breakdown and submits as an inquiry instead of taking payment. */
+export const PAYPAL_CONFIG = {
+  clientId: "YOUR_PAYPAL_CLIENT_ID",
+  currency: "USD",
+};
+
 export const EMAILJS_CONFIG = {
   serviceId: "service_5v57762",
   templateId: "template_jsikt5b",
