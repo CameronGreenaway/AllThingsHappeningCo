@@ -539,8 +539,13 @@ img { display: block; max-width: 100%; }
   min-height: 160px;
 }
 .modal-gallery-img {
+  /* height:auto + aspect-ratio, never height:100%. Safari resolves height:100%
+     against the auto-height grid row as auto, then sizes the image by its
+     intrinsic ratio instead of aspect-ratio - a 2:3 photo overflowed its
+     square tile and ran over the text below on iPad. Geometrically identical
+     to height:100% everywhere that already rendered correctly. */
   width: 100% !important;
-  height: 100% !important;
+  height: auto !important;
   object-fit: cover !important;
   border-radius: 2px;
   display: block;
@@ -1244,6 +1249,13 @@ img { display: block; max-width: 100%; }
 @media (max-width: 1024px) {
   .nav { padding: 1.3rem 2rem; }
   .nav.pinned { padding: 0.85rem 2rem; }
+  /* Tablet portrait (iPad is 820-1024px) cannot fit the logo, six links
+     and the Book Now button — they need ~1000px and run off the edge.
+     Switch to the hamburger here instead of at 768px. */
+  .nav-links { display: none; }
+  .nav-cta { display: none; }
+  .nav-hamburger { display: flex; }
+  .mobile-nav { display: flex; }
   .area-inner { gap: 3rem; }
   .footer-grid { grid-template-columns: 1fr 1fr 1fr; }
   .footer-grid > div:first-child { grid-column: 1 / -1; }
@@ -1253,10 +1265,6 @@ img { display: block; max-width: 100%; }
 @media (max-width: 768px) {
   .nav { padding: 1rem 1.5rem; }
   .nav.pinned { padding: 0.75rem 1.5rem; }
-  .nav-links { display: none; }
-  .nav-cta { display: none; }
-  .nav-hamburger { display: flex; }
-  .mobile-nav { display: flex; }
   .hero-deco { display: none; }
   .area-inner { grid-template-columns: 1fr; gap: 2.5rem; }
   .area-map { max-width: 300px; margin: 0 auto; }

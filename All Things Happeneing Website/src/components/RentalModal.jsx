@@ -58,7 +58,7 @@ export default function RentalModal({ service, onClose }) {
                       poster={src.replace(/\.mp4$/i, '-poster.jpg')}
                       alt={`${service.name} — video ${i + 1}`}
                       className="modal-gallery-img"
-                      style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                      style={{ width: '100%', height: 'auto', objectFit: 'cover', display: 'block' }}
                       controls
                       autoPlay={!isMobile}
                       loop
@@ -72,7 +72,7 @@ export default function RentalModal({ service, onClose }) {
                       className={`modal-gallery-img${service.imageFit === 'contain' ? ' contain-photo' : ''}`}
                       style={{
                         width: '100%',
-                        height: '100%',
+                        height: 'auto',
                         objectFit: 'cover',
                         display: 'block',
                         objectPosition: service.imagePositions?.[i] || service.mainImageStyle?.['--img-pos'] || 'center',
