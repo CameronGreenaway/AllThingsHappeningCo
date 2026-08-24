@@ -38,7 +38,7 @@
   ══════════════════════════════════════════════════════════════════
 */
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import emailjs from '@emailjs/browser';
 import AnimateIn from '../components/AnimateIn';
@@ -72,6 +72,16 @@ export default function Contact() {
   const [error, setError] = useState('');
   const [payAmount, setPayAmount] = useState(0);
   const [paidAmount, setPaidAmount] = useState(0);
+  const formRef = useRef(null);
+
+  /* PayPal opens outside the form, so nothing would stop someone paying
+     with the name and email still blank. Checked before checkout opens. */
+  const validateForm = () => {
+    const el = formRef.current;
+    if (!el || el.checkValidity()) return true;
+    el.reportValidity();
+    return false;
+  };
 
   useEffect(() => {
     if (location.hash) {
@@ -103,6 +113,10 @@ export default function Contact() {
   // Booking Request can take money.
   const isBookingForm = inquiryType.value === 'booking' || inquiryType.value === 'question';
   const canPay = inquiryType.value === 'booking';
+  // A date and time are needed to hold a booking; a general question can
+  // leave them blank.
+  const eventRequired = inquiryType.value === 'booking';
+  const eventMark = eventRequired ? '*' : '(optional)';
 
   const chosenServices = form.items.map(serviceByName).filter(Boolean);
   const quote = buildQuote(form.items, form.selections, form.shipZip);
@@ -300,7 +314,7 @@ export default function Contact() {
                   </button>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} noValidate>
+                <form onSubmit={handleSubmit} ref={formRef}>
                   <div className="contact-info-label" style={{ marginBottom: '0.8rem' }}>Please Choose Type of Inquiry</div>
 
                   {/* Inquiry type tabs */}
@@ -359,21 +373,21 @@ export default function Contact() {
                     <>
                       <div className="form-row">
                         <div className="form-group">
-                          <label className="form-label">Event Date *</label>
+                          <label className="form-label">Event Date {eventMark}</label>
                           <input
                             className="form-input"
                             type="date"
-                            required
+                            required={eventRequired}
                             value={form.eventDate}
                             onChange={set('eventDate')}
                           />
                         </div>
                         <div className="form-group">
-                          <label className="form-label">Event Type *</label>
+                          <label className="form-label">Event Type {eventMark}</label>
                           <div className="form-select-wrap">
                             <select
                               className="form-select"
-                              required
+                              required={eventRequired}
                               value={form.eventType}
                               onChange={set('eventType')}
                             >
@@ -385,22 +399,22 @@ export default function Contact() {
                       </div>
 
                       <div className="form-group">
-                        <label className="form-label">Event Start Time *</label>
+                        <label className="form-label">Event Start Time {eventMark}</label>
                         <input
                           className="form-input"
                           type="time"
-                          required
+                          required={eventRequired}
                           value={form.eventStartTime}
                           onChange={set('eventStartTime')}
                         />
                       </div>
 
                       <div className="form-group">
-                        <label className="form-label">Event End Time *</label>
+                        <label className="form-label">Event End Time {eventMark}</label>
                         <input
                           className="form-input"
                           type="time"
-                          required
+                          required={eventRequired}
                           value={form.eventEndTime}
                           onChange={set('eventEndTime')}
                         />
@@ -445,7 +459,7 @@ export default function Contact() {
                             <div className="form-select-wrap">
                               <select
                                 className="form-select"
-                                required
+                                required={canPay}
                                 value={sel.option || ''}
                                 onChange={e => setSelection(svc.id, { option: e.target.value })}
                               >
@@ -466,7 +480,7 @@ export default function Contact() {
                                     className="form-input"
                                     type="number"
                                     min="1"
-                                    required
+                                    required={canPay}
                                     value={sel.qty || ''}
                                     onChange={e => setSelection(svc.id, { qty: e.target.value })}
                                     placeholder="1"
@@ -478,7 +492,7 @@ export default function Contact() {
                                     className="form-input"
                                     type="number"
                                     min="1"
-                                    required
+                                    required={canPay}
                                     value={sel.days || ''}
                                     onChange={e => setSelection(svc.id, { days: e.target.value })}
                                     placeholder="1"
@@ -499,7 +513,7 @@ export default function Contact() {
                             inputMode="numeric"
                             pattern="\d{5}"
                             maxLength={5}
-                            required
+                            required={canPay}
                             value={form.shipZip}
                             onChange={e => setForm(f => ({ ...f, shipZip: e.target.value.replace(/\D/g, '') }))}
                             placeholder="15106"
@@ -557,6 +571,7 @@ export default function Contact() {
                       amount={payAmount}
                       setAmount={setPayAmount}
                       disabled={sending}
+                      validate={validateForm}
                       onPaid={(details) => {
                         setPaidAmount(payAmount);
                         // Record the booking by the same route as any other

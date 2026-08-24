@@ -25,7 +25,7 @@ function loadPayPal(clientId, currency) {
   });
 }
 
-export default function BookingPayment({ quote, amount, setAmount, onPaid, disabled }) {
+export default function BookingPayment({ quote, amount, setAmount, onPaid, disabled, validate }) {
   const holder = useRef(null);
   const amountRef = useRef(amount);
   const [sdkError, setSdkError] = useState('');
@@ -43,6 +43,10 @@ export default function BookingPayment({ quote, amount, setAmount, onPaid, disab
         if (cancelled || !holder.current) return;
         holder.current.innerHTML = '';
         paypal.Buttons({
+          // Blocks checkout until the surrounding form is filled in, so a
+          // payment can never arrive without a name and email attached.
+          onClick: (_d, actions) =>
+            (!validate || validate()) ? actions.resolve() : actions.reject(),
           createOrder: (_d, actions) => actions.order.create({
             purchase_units: [{
               amount: { value: amountRef.current.toFixed(2) },
@@ -55,7 +59,7 @@ export default function BookingPayment({ quote, amount, setAmount, onPaid, disab
       })
       .catch(() => setSdkError('PayPal could not load. Check your connection and try again.'));
     return () => { cancelled = true; };
-  }, [configured, quote.payable, disabled, onPaid]);
+  }, [configured, quote.payable, disabled, onPaid, validate]);
 
   if (!quote.lines.length && !quote.blockers.length) return null;
 
