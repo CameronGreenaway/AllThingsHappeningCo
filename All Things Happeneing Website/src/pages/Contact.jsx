@@ -46,6 +46,7 @@ import { SITE, INQUIRY_TYPES, EVENT_TYPES, EMAILJS_CONFIG } from '../data/site';
 import { VISIBLE_SERVICES } from '../data/services';
 import { buildQuote, payableOptions, serviceByName, money, QUOTE_ONLY_SERVICES, PER_DAY_SERVICES } from '../data/quote';
 import BookingPayment from '../components/BookingPayment';
+import TermsModal from '../components/TermsModal';
 
 const INITIAL_FORM = {
   name: '',
@@ -72,6 +73,10 @@ export default function Contact() {
   const [error, setError] = useState('');
   const [payAmount, setPayAmount] = useState(0);
   const [paidAmount, setPaidAmount] = useState(0);
+  const [termsOpen, setTermsOpen] = useState(false);
+  // Timestamped so the record shows when the customer agreed, not just that
+  // they did — that is the part that matters in a chargeback.
+  const [termsAcceptedAt, setTermsAcceptedAt] = useState('');
   const formRef = useRef(null);
 
   /* PayPal opens outside the form, so nothing would stop someone paying
@@ -179,6 +184,9 @@ export default function Contact() {
       items: itemsText,
       order_total: quote.total ? money(quote.total) : 'N/A',
       shipping: quote.shipping ? `${money(quote.shipCost)} to ${form.shipZip} (USPS zone ${quote.shipping.zone})` : 'N/A',
+      terms_accepted: termsAcceptedAt
+        ? `Yes — ${new Date(termsAcceptedAt).toLocaleString('en-US')}`
+        : 'Not accepted',
       amount_paid: paid ? money(paid) : 'Not paid online',
       balance_due: paid ? money(Math.max(0, quote.total - paid)) : 'N/A',
       message: form.message,
@@ -564,6 +572,41 @@ export default function Contact() {
                     />
                   </div>
 
+                  {/* Terms gate — required before any payment can be taken */}
+                  {canPay && quote.payable && (
+                    <div className={`terms-gate${termsAcceptedAt ? ' accepted' : ''}`}>
+                      <label className="terms-gate-check">
+                        <input
+                          type="checkbox"
+                          required
+                          checked={!!termsAcceptedAt}
+                          onChange={e => {
+                            // Ticking must go through the pop-up so the
+                            // policies are actually put in front of them.
+                            if (e.target.checked) setTermsOpen(true);
+                            else setTermsAcceptedAt('');
+                          }}
+                        />
+                        <span>
+                          I agree to the{' '}
+                          <button
+                            type="button"
+                            className="terms-gate-link"
+                            onClick={() => setTermsOpen(true)}
+                          >
+                            Terms of Service
+                          </button>{' '}
+                          *
+                        </span>
+                      </label>
+                      {termsAcceptedAt && (
+                        <span className="terms-gate-stamp">
+                          Accepted {new Date(termsAcceptedAt).toLocaleString('en-US')}
+                        </span>
+                      )}
+                    </div>
+                  )}
+
                   {/* Payment — Booking Request only */}
                   {canPay && form.items.length > 0 && (
                     <BookingPayment
@@ -607,6 +650,12 @@ export default function Contact() {
           </div>
         </div>
       </section>
+
+      <TermsModal
+        open={termsOpen}
+        onClose={() => setTermsOpen(false)}
+        onAccept={() => setTermsAcceptedAt(new Date().toISOString())}
+      />
 
       {/* ── AVAILABILITY CALENDAR ── */}
       <section className="calendar-section" id="calendar">

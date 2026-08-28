@@ -1399,3 +1399,114 @@ img { display: block; max-width: 100%; }
   font-size: 0.72rem; color: var(--text-muted);
   margin-top: 0.4rem; line-height: 1.5;
 }
+
+/* ── TERMS GATE + POP-UP (Contact → Booking Request) ── */
+.terms-gate {
+  border: 1px solid rgba(216,149,155,0.4);
+  background: rgba(216,149,155,0.07);
+  padding: 1rem 1.1rem;
+  margin-bottom: 1.4rem;
+}
+.terms-gate.accepted {
+  border-color: rgba(130,150,114,0.45);
+  background: rgba(130,150,114,0.07);
+}
+.terms-gate-check {
+  display: flex; align-items: flex-start; gap: 0.7rem;
+  font-size: 0.84rem; color: var(--text); line-height: 1.55;
+  cursor: pointer;
+}
+.terms-gate-check input { margin-top: 0.25rem; accent-color: var(--sage); flex-shrink: 0; }
+.terms-gate-link {
+  background: none; border: none; padding: 0;
+  font: inherit; color: var(--sage); font-weight: 600;
+  text-decoration: underline; cursor: pointer;
+}
+.terms-gate-link:hover { color: var(--forest); }
+.terms-gate-stamp {
+  display: block; margin-top: 0.5rem; padding-left: 1.7rem;
+  font-size: 0.71rem; letter-spacing: 0.04em; color: var(--sage);
+}
+
+.terms-overlay {
+  position: fixed; inset: 0; z-index: 950;
+  background: rgba(36,53,48,0.72);
+  backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: center;
+  padding: 1.5rem 1.25rem;
+  overflow-y: auto;
+}
+.terms-card {
+  position: relative; margin: auto;
+  width: min(640px, 100%);
+  max-height: min(86vh, 900px);
+  display: flex; flex-direction: column;
+  background: var(--cream);
+  padding: 1.8rem;
+  box-shadow: var(--shadow-lg);
+}
+.terms-head {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  gap: 1rem; margin-bottom: 0.9rem;
+}
+.terms-eyebrow {
+  font-size: 0.6rem; font-weight: 700; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--sage); margin-bottom: 0.3rem;
+}
+.terms-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.7rem; color: var(--forest); line-height: 1.1;
+}
+.terms-x {
+  background: none; border: none; font-size: 1rem;
+  color: var(--text-muted); cursor: pointer; line-height: 1; padding: 0.2rem;
+}
+.terms-x:hover { color: var(--forest); }
+.terms-lead {
+  font-size: 0.82rem; color: var(--text-muted);
+  line-height: 1.6; margin-bottom: 1.1rem;
+}
+.terms-list {
+  flex: 1; overflow-y: auto;
+  border-top: 1px solid rgba(130,150,114,0.2);
+}
+.terms-item { border-bottom: 1px solid rgba(130,150,114,0.2); }
+.terms-item-head {
+  width: 100%; display: flex; justify-content: space-between; align-items: center;
+  gap: 1rem; background: none; border: none;
+  padding: 0.9rem 0.2rem;
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.73rem; font-weight: 700; letter-spacing: 0.13em;
+  text-transform: uppercase; color: var(--forest);
+  cursor: pointer; text-align: left;
+}
+.terms-item-head:hover { color: var(--sage); }
+.terms-chev { color: var(--sage); font-size: 1rem; }
+.terms-item-body {
+  padding: 0 0.2rem 1.1rem;
+  font-size: 0.83rem; color: var(--text-muted); line-height: 1.75;
+}
+.terms-item-body p { margin-bottom: 0.7rem; }
+.terms-item-body ul { margin: 0.5rem 0 0.7rem 1.1rem; }
+.terms-item-body li { margin-bottom: 0.35rem; }
+.terms-item-body strong { color: var(--forest); }
+.terms-permalink {
+  display: inline-block; margin-top: 0.4rem;
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--sage); text-decoration: none;
+}
+.terms-permalink:hover { color: var(--forest); }
+.terms-agree {
+  display: flex; align-items: flex-start; gap: 0.7rem;
+  margin: 1.1rem 0 1.2rem;
+  font-size: 0.84rem; color: var(--text); line-height: 1.6; cursor: pointer;
+}
+.terms-agree input { margin-top: 0.25rem; accent-color: var(--sage); flex-shrink: 0; }
+.terms-agree strong { color: var(--forest); }
+.terms-actions { display: flex; gap: 0.8rem; }
+.terms-cancel, .terms-accept { flex: 1; text-align: center; }
+.terms-accept:disabled { opacity: 0.45; cursor: not-allowed; }
+@media (max-width: 600px) {
+  .terms-card { padding: 1.3rem; max-height: 92vh; }
+  .terms-actions { flex-direction: column-reverse; }
+}
