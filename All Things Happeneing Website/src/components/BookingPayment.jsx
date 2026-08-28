@@ -40,6 +40,16 @@ export default function BookingPayment({ quote, amount, setAmount, onPaid, disab
   // this ref so dragging the slider never tears down the iframe.
   useEffect(() => { amountRef.current = amount; }, [amount]);
 
+  // onPaid and validate arrive as inline arrows, so they are new objects on
+  // every keystroke in the parent form. Depending on them directly re-ran
+  // the effect constantly, ripping out the container mid-render and making
+  // the SDK throw "container element removed from DOM". Held in refs so the
+  // callbacks stay current without the effect ever seeing them change.
+  const onPaidRef = useRef(onPaid);
+  const validateRef = useRef(validate);
+  useEffect(() => { onPaidRef.current = onPaid; }, [onPaid]);
+  useEffect(() => { validateRef.current = validate; }, [validate]);
+
   useEffect(() => {
     if (!configured || !quote.payable || disabled || !holder.current) return;
     let cancelled = false;
@@ -51,20 +61,24 @@ export default function BookingPayment({ quote, amount, setAmount, onPaid, disab
           // Blocks checkout until the surrounding form is filled in, so a
           // payment can never arrive without a name and email attached.
           onClick: (_d, actions) =>
-            (!validate || validate()) ? actions.resolve() : actions.reject(),
+            (!validateRef.current || validateRef.current())
+              ? actions.resolve() : actions.reject(),
           createOrder: (_d, actions) => actions.order.create({
             purchase_units: [{
               amount: { value: amountRef.current.toFixed(2) },
               description: 'All Things Happening Co — booking payment',
             }],
           }),
-          onApprove: (_d, actions) => actions.order.capture().then(onPaid),
+          onApprove: (_d, actions) => actions.order.capture().then(r => onPaidRef.current?.(r)),
           onError: () => setSdkError('PayPal could not complete that payment. Please try again.'),
         }).render(holder.current);
       })
       .catch(() => setSdkError('PayPal could not load. Check your connection and try again.'));
-    return () => { cancelled = true; };
-  }, [configured, clientId, quote.payable, disabled, onPaid, validate]);
+    return () => {
+      cancelled = true;
+      if (holder.current) holder.current.innerHTML = '';
+    };
+  }, [configured, clientId, quote.payable, disabled]);
 
   if (!quote.lines.length && !quote.blockers.length) return null;
 
