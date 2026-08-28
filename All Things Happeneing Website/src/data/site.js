@@ -186,12 +186,22 @@ export const INQUIRY_TYPES = [
   { value: "review", label: "Leave a Review", prefix: "[REVIEW]" },
 ];
 
-/* PayPal Business — paste your live Client ID here to switch payments on.
-   Dashboard → Apps & Credentials → Live → your app → Client ID.
-   Until this is filled in the booking form still works; it just shows the
-   deposit breakdown and submits as an inquiry instead of taking payment. */
+/* PayPal Business — two credentials, picked automatically by environment.
+
+   `npm run dev` uses the sandbox ID so test bookings never move real
+   money. The deployed site always uses the live ID, so a sandbox
+   credential cannot reach real customers even if it is committed.
+
+   Both are Client IDs from developer.paypal.com → Apps & Credentials
+   (Sandbox tab and Live tab respectively). Client IDs are public and
+   safe here. Never put the Secret in this file — this repo is public. */
 export const PAYPAL_CONFIG = {
-  clientId: "YOUR_PAYPAL_CLIENT_ID",
+  // Live: paste the Client ID from the Live tab to switch payments on.
+  // Until then the deployed form shows the deposit breakdown and submits
+  // as an inquiry instead of taking payment.
+  clientId: "BAAMf8veF1h2Vmw-6gEi8vLc1rPFRZDeV8NXv-odgJ5k9I9JnYEjFkotOn35vbKCecOY4zIKIZ_51nYmEE",
+  // Sandbox: used by the dev server only.
+  sandboxClientId: "BAA3QVJRsoYA5EELaufhSar48gPzMYblAveiJdZZtvY9ZG7XAn3PfIPvkE1bmEUZQVQ9EdjIFM-3O5ZKxo",
   currency: "USD",
 };
 

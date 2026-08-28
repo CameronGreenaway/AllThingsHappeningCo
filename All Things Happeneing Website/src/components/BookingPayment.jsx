@@ -29,7 +29,12 @@ export default function BookingPayment({ quote, amount, setAmount, onPaid, disab
   const holder = useRef(null);
   const amountRef = useRef(amount);
   const [sdkError, setSdkError] = useState('');
-  const configured = PAYPAL_CONFIG.clientId !== 'YOUR_PAYPAL_CLIENT_ID';
+  // Dev falls back to the sandbox credential; the built site never does,
+  // so test money and real money cannot cross over.
+  const clientId = import.meta.env.DEV
+    ? (PAYPAL_CONFIG.sandboxClientId || PAYPAL_CONFIG.clientId)
+    : PAYPAL_CONFIG.clientId;
+  const configured = !!clientId && clientId !== 'YOUR_PAYPAL_CLIENT_ID';
 
   // Buttons are rendered once; createOrder reads the live amount from
   // this ref so dragging the slider never tears down the iframe.
@@ -38,7 +43,7 @@ export default function BookingPayment({ quote, amount, setAmount, onPaid, disab
   useEffect(() => {
     if (!configured || !quote.payable || disabled || !holder.current) return;
     let cancelled = false;
-    loadPayPal(PAYPAL_CONFIG.clientId, PAYPAL_CONFIG.currency)
+    loadPayPal(clientId, PAYPAL_CONFIG.currency)
       .then(paypal => {
         if (cancelled || !holder.current) return;
         holder.current.innerHTML = '';
@@ -59,7 +64,7 @@ export default function BookingPayment({ quote, amount, setAmount, onPaid, disab
       })
       .catch(() => setSdkError('PayPal could not load. Check your connection and try again.'));
     return () => { cancelled = true; };
-  }, [configured, quote.payable, disabled, onPaid, validate]);
+  }, [configured, clientId, quote.payable, disabled, onPaid, validate]);
 
   if (!quote.lines.length && !quote.blockers.length) return null;
 
@@ -86,7 +91,7 @@ export default function BookingPayment({ quote, amount, setAmount, onPaid, disab
           <span>
             Shipping
             <em className="pay-detail">
-              USPS Ground Advantage · zone {quote.shipping.zone} · estimated
+              USPS Ground Advantage · zone {quote.shipping.zone}
             </em>
           </span>
           <span>{money(quote.shipCost)}</span>

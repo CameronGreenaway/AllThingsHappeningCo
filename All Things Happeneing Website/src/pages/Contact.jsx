@@ -178,7 +178,7 @@ export default function Contact() {
       guest_count: form.guestCount || 'Not specified',
       items: itemsText,
       order_total: quote.total ? money(quote.total) : 'N/A',
-      shipping: quote.shipping ? `${money(quote.shipCost)} (USPS zone ${quote.shipping.zone}, estimated)` : 'N/A',
+      shipping: quote.shipping ? `${money(quote.shipCost)} to ${form.shipZip} (USPS zone ${quote.shipping.zone})` : 'N/A',
       amount_paid: paid ? money(paid) : 'Not paid online',
       balance_due: paid ? money(Math.max(0, quote.total - paid)) : 'N/A',
       message: form.message,
