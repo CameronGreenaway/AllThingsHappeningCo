@@ -74,7 +74,7 @@ export function buildQuote(itemNames, selections, shipZip) {
     if (!service) continue;
 
     if (QUOTE_ONLY_SERVICES.includes(service.id)) {
-      blockers.push(`${service.name} is priced after a consultation`);
+      blockers.push({ kind: 'quote', text: `${service.name} is priced after a consultation` });
       continue;
     }
 
@@ -83,7 +83,7 @@ export function buildQuote(itemNames, selections, shipZip) {
     const chosen = options.find(o => o.id === sel.option);
 
     if (!chosen) {
-      blockers.push(`Choose an option for ${service.name}`);
+      blockers.push({ kind: 'option', text: `Choose an option for ${service.name}` });
       continue;
     }
 
@@ -115,7 +115,7 @@ export function buildQuote(itemNames, selections, shipZip) {
   }
 
   const shipping = needsShipping ? estimateShipping(shipZip) : null;
-  if (needsShipping && !shipping) blockers.push('Enter a ZIP code for shipping');
+  if (needsShipping && !shipping) blockers.push({ kind: 'zip', text: 'Enter a ZIP code for shipping' });
 
   const subtotal = lines.reduce((s, l) => s + l.amount, 0);
   const shipCost = shipping ? shipping.total : 0;
@@ -139,6 +139,9 @@ export function buildQuote(itemNames, selections, shipZip) {
     hasPayInFull: fullDue > 0,
     payable,
     blockers,
+    // True only when something genuinely cannot be priced without a call,
+    // as opposed to an option the customer simply has not picked yet.
+    quoteOnly: blockers.some(b => b.kind === 'quote'),
   };
 }
 

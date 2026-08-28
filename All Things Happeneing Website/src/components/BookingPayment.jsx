@@ -107,12 +107,25 @@ export default function BookingPayment({ quote, amount, setAmount, onPaid, disab
 
       {quote.blockers.length > 0 ? (
         <div className="pay-note">
-          <strong>This booking is quote-based.</strong>
-          <ul>{quote.blockers.map(b => <li key={b}>{b}</li>)}</ul>
-          <p>
-            Send it through as an inquiry and we'll price it on a quick call,
-            then send a payment link for the deposit.
-          </p>
+          {quote.quoteOnly ? (
+            <>
+              <strong>This booking is quote-based.</strong>
+              <ul>{quote.blockers.map(b => <li key={b.text}>{b.text}</li>)}</ul>
+              <p>
+                Send it through as an inquiry and we'll price it on a quick call,
+                then send a payment link for the deposit.
+              </p>
+            </>
+          ) : (
+            <>
+              {/* Everything selected can be priced — the customer just has
+                  not chosen yet, so nothing about a quote belongs here. */}
+              <strong>Please Select an Option</strong>
+              {quote.blockers.length > 1 && (
+                <ul>{quote.blockers.map(b => <li key={b.text}>{b.text}</li>)}</ul>
+              )}
+            </>
+          )}
         </div>
       ) : (
         <>

@@ -120,7 +120,7 @@ export default function Contact() {
 
   const chosenServices = form.items.map(serviceByName).filter(Boolean);
   const quote = buildQuote(form.items, form.selections, form.shipZip);
-  const needsShipZip = quote.lines.some(l => l.payInFull) || /ZIP/.test(quote.blockers.join());
+  const needsShipZip = quote.lines.some(l => l.payInFull) || quote.blockers.some(b => b.kind === 'zip');
 
   const setSelection = (serviceId, patch) => setForm(f => ({
     ...f,
