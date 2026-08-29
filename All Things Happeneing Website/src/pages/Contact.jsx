@@ -9,8 +9,14 @@
   3. Create Email Template:
      Dashboard → Email Templates → Create New Template
      Subject line: {{subject_prefix}} — {{inquiry_type}} from {{from_name}}
-     Body fields to include: from_name, from_email, phone, event_date,
-       event_start_time, event_end_time, event_type, guest_count, items, message
+     Body fields to include — EmailJS silently drops any variable the
+     template does not declare, so a missing line here means the value
+     never reaches the inbox even though the form sends it:
+       from_name, from_email, phone,
+       event_date, event_start_time, event_end_time, event_type, guest_count,
+       items, order_total, shipping, shipping_address,
+       amount_paid, balance_due, terms_accepted,
+       message
      Reply-To: {{from_email}}
      Copy the Template ID
   4. Get Public Key:
@@ -42,7 +48,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import emailjs from '@emailjs/browser';
 import AnimateIn from '../components/AnimateIn';
-import { SITE, INQUIRY_TYPES, EVENT_TYPES, EMAILJS_CONFIG } from '../data/site';
+import { SITE, INQUIRY_TYPES, EVENT_TYPES, EMAILJS_CONFIG, US_STATES } from '../data/site';
 import { VISIBLE_SERVICES } from '../data/services';
 import { buildQuote, payableOptions, serviceByName, money, QUOTE_ONLY_SERVICES, PER_DAY_SERVICES } from '../data/quote';
 import BookingPayment from '../components/BookingPayment';
@@ -60,6 +66,10 @@ const INITIAL_FORM = {
   items: [],
   // { [serviceId]: { option, qty, days } }
   selections: {},
+  shipStreet: '',
+  shipApt: '',
+  shipCity: '',
+  shipState: '',
   shipZip: '',
   message: '',
 };
@@ -125,7 +135,7 @@ export default function Contact() {
 
   const chosenServices = form.items.map(serviceByName).filter(Boolean);
   const quote = buildQuote(form.items, form.selections, form.shipZip);
-  const needsShipZip = quote.lines.some(l => l.payInFull) || quote.blockers.some(b => b.kind === 'zip');
+  const needsShipAddress = quote.lines.some(l => l.payInFull) || quote.blockers.some(b => b.kind === 'zip');
 
   const setSelection = (serviceId, patch) => setForm(f => ({
     ...f,
@@ -163,6 +173,16 @@ export default function Contact() {
 
     // Priced lines read back exactly as quoted; anything still awaiting a
     // consultation is listed plainly so nothing looks like a firm price.
+    // One label-ready block rather than five separate fields to paste.
+    const shipTo = quote.lines.some(l => l.payInFull)
+      ? [
+          form.shipStreet,
+          form.shipApt,
+          [form.shipCity, form.shipState].filter(Boolean).join(', '),
+          form.shipZip,
+        ].filter(Boolean).join('\n')
+      : '';
+
     const quoted = quote.lines.map(l => `${l.label}${l.detail ? ` (${l.detail})` : ''} — ${money(l.amount)}`);
     const unpriced = form.items.filter(n => !quote.lines.some(l => l.label.startsWith(n)));
     const itemsText = [
@@ -183,7 +203,8 @@ export default function Contact() {
       guest_count: form.guestCount || 'Not specified',
       items: itemsText,
       order_total: quote.total ? money(quote.total) : 'N/A',
-      shipping: quote.shipping ? `${money(quote.shipCost)} to ${form.shipZip} (USPS zone ${quote.shipping.zone})` : 'N/A',
+      shipping_address: shipTo || 'N/A',
+      shipping: quote.shipping ? `${money(quote.shipCost)} (USPS zone ${quote.shipping.zone})` : 'N/A',
       terms_accepted: termsAcceptedAt
         ? `Yes — ${new Date(termsAcceptedAt).toLocaleString('en-US')}`
         : 'Not accepted',
@@ -512,25 +533,85 @@ export default function Contact() {
                         );
                       })}
 
-                      {needsShipZip && (
-                        <div className="form-group">
-                          <label className="form-label">Shipping ZIP Code *</label>
-                          <input
-                            className="form-input"
-                            type="text"
-                            inputMode="numeric"
-                            pattern="\d{5}"
-                            maxLength={5}
-                            required={canPay}
-                            value={form.shipZip}
-                            onChange={e => setForm(f => ({ ...f, shipZip: e.target.value.replace(/\D/g, '') }))}
-                            placeholder="15106"
-                          />
-                          <p className="form-hint">
-                            The DIY Box ships USPS Ground Advantage. We use this to
-                            work out postage.
-                          </p>
-                        </div>
+                      {needsShipAddress && (
+                        <>
+                          <div className="form-group">
+                            <label className="form-label">Shipping Address *</label>
+                            <input
+                              className="form-input"
+                              type="text"
+                              autoComplete="shipping street-address"
+                              required={canPay}
+                              value={form.shipStreet}
+                              onChange={set('shipStreet')}
+                              placeholder="123 Main Street"
+                            />
+                            <p className="form-hint">
+                              The DIY Box ships USPS Ground Advantage — postage is
+                              worked out from the ZIP below.
+                            </p>
+                          </div>
+
+                          <div className="form-group">
+                            <label className="form-label">Apt, Suite, Unit (optional)</label>
+                            <input
+                              className="form-input"
+                              type="text"
+                              autoComplete="shipping address-line2"
+                              value={form.shipApt}
+                              onChange={set('shipApt')}
+                              placeholder="Apt 4B"
+                            />
+                          </div>
+
+                          <div className="form-group">
+                            <label className="form-label">City *</label>
+                            <input
+                              className="form-input"
+                              type="text"
+                              autoComplete="shipping address-level2"
+                              required={canPay}
+                              value={form.shipCity}
+                              onChange={set('shipCity')}
+                              placeholder="Pittsburgh"
+                            />
+                          </div>
+
+                          <div className="form-row">
+                            <div className="form-group">
+                              <label className="form-label">State *</label>
+                              <div className="form-select-wrap">
+                                <select
+                                  className="form-select"
+                                  autoComplete="shipping address-level1"
+                                  required={canPay}
+                                  value={form.shipState}
+                                  onChange={set('shipState')}
+                                >
+                                  <option value="">Select state…</option>
+                                  {US_STATES.map(([code, name]) => (
+                                    <option key={code} value={code}>{name}</option>
+                                  ))}
+                                </select>
+                              </div>
+                            </div>
+                            <div className="form-group">
+                              <label className="form-label">ZIP Code *</label>
+                              <input
+                                className="form-input"
+                                type="text"
+                                inputMode="numeric"
+                                pattern="\d{5}"
+                                maxLength={5}
+                                autoComplete="shipping postal-code"
+                                required={canPay}
+                                value={form.shipZip}
+                                onChange={e => setForm(f => ({ ...f, shipZip: e.target.value.replace(/\D/g, '') }))}
+                                placeholder="15106"
+                              />
+                            </div>
+                          </div>
+                        </>
                       )}
 
                     </>
