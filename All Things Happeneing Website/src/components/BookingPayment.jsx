@@ -112,6 +112,18 @@ export default function BookingPayment({ quote, amount, setAmount, onPaid, disab
         </div>
       )}
 
+      {quote.lines.length > 0 && quote.tax > 0 && (
+        <div className="pay-row">
+          <span>
+            Sales tax
+            <em className="pay-detail">
+              PA {(quote.taxRate * 100).toFixed(0)}% — 6% state + 1% Allegheny County
+            </em>
+          </span>
+          <span>{money(quote.tax)}</span>
+        </div>
+      )}
+
       {quote.lines.length > 0 && (
         <div className="pay-row pay-total">
           <span>Order total</span>

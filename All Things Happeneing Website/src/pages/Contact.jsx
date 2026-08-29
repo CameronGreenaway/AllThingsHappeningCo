@@ -14,7 +14,7 @@
      never reaches the inbox even though the form sends it:
        from_name, from_email, phone,
        event_date, event_start_time, event_end_time, event_type, guest_count,
-       items, order_total, shipping, shipping_address,
+       items, shipping, shipping_address, sales_tax, order_total,
        amount_paid, balance_due, terms_accepted,
        message
      Reply-To: {{from_email}}
@@ -202,6 +202,7 @@ export default function Contact() {
       event_type: form.eventType || 'N/A',
       guest_count: form.guestCount || 'Not specified',
       items: itemsText,
+      sales_tax: quote.tax ? `${money(quote.tax)} (PA ${(quote.taxRate * 100).toFixed(0)}%)` : 'N/A',
       order_total: quote.total ? money(quote.total) : 'N/A',
       shipping_address: shipTo || 'N/A',
       shipping: quote.shipping ? `${money(quote.shipCost)} (USPS zone ${quote.shipping.zone})` : 'N/A',

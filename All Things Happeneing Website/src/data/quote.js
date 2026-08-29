@@ -11,6 +11,20 @@ import { estimateShipping } from './shipping';
 
 export const DEPOSIT_RATE = 0.25;
 
+/* Pennsylvania sales tax: 6% state + 1% Allegheny County local.
+
+   Applied to shipping as well as goods — PA treats delivery charges as
+   taxable when the item being delivered is taxable.
+
+   Two cases this flat rate does not model, both worth checking with an
+   accountant before they come up:
+     - Deliveries inside the 50-mile radius but outside Allegheny County
+       (Butler, Beaver, Washington, Westmoreland) are 6%, not 7%.
+     - A DIY Box shipped out of state is generally not PA-taxable at all. */
+export const TAX_STATE = 0.06;
+export const TAX_LOCAL = 0.01;
+export const TAX_RATE = TAX_STATE + TAX_LOCAL;
+
 // Paid in full up front rather than by deposit — it ships, so there is
 // no date to hold and the goods leave the building.
 export const PAY_IN_FULL_OPTIONS = ['DIY Box'];
@@ -119,12 +133,16 @@ export function buildQuote(itemNames, selections, shipZip) {
 
   const subtotal = lines.reduce((s, l) => s + l.amount, 0);
   const shipCost = shipping ? shipping.total : 0;
-  const total = subtotal + shipCost;
+  const tax = (subtotal + shipCost) * TAX_RATE;
+  const total = subtotal + shipCost + tax;
 
-  // Items that ship are due in full; the rest only need the deposit.
-  const fullDue = lines.filter(l => l.payInFull).reduce((s, l) => s + l.amount, 0) + shipCost;
-  const depositable = lines.filter(l => !l.payInFull).reduce((s, l) => s + l.amount, 0);
-  const minDue = fullDue + depositable * DEPOSIT_RATE;
+  // Items that ship are due in full; the rest only need the deposit. Tax
+  // follows whichever bucket it was charged on, so the deposit is 25% of a
+  // tax-inclusive figure rather than 25% of goods with the tax deferred.
+  const fullGoods = lines.filter(l => l.payInFull).reduce((s, l) => s + l.amount, 0);
+  const depositGoods = lines.filter(l => !l.payInFull).reduce((s, l) => s + l.amount, 0);
+  const fullDue = (fullGoods + shipCost) * (1 + TAX_RATE);
+  const minDue = fullDue + depositGoods * (1 + TAX_RATE) * DEPOSIT_RATE;
 
   const payable = itemNames.length > 0 && blockers.length === 0 && total > 0;
 
@@ -133,10 +151,12 @@ export function buildQuote(itemNames, selections, shipZip) {
     shipping,
     subtotal: round(subtotal),
     shipCost: round(shipCost),
+    tax: round(tax),
+    taxRate: TAX_RATE,
     total: round(total),
     minDue: round(minDue),
     depositRate: DEPOSIT_RATE,
-    hasPayInFull: fullDue > 0,
+    hasPayInFull: fullGoods > 0,
     payable,
     blockers,
     // True only when something genuinely cannot be priced without a call,
