@@ -1,36 +1,53 @@
 import { useState, useEffect } from 'react';
 
 /* ─────────────────────────────────────────────────────────────
-   LAUNCH MODE — temporary.
+   POSTER ANNOUNCEMENT — optional, off by default.
 
-   While true, the launch poster shows as a pop-up on every screen
-   size and BOTH the desktop banner and the mobile announcement
-   pop-up are suppressed.
+   While enabled, a full-image pop-up shows on every screen size and
+   BOTH the desktop banner and the mobile announcement pop-up are
+   suppressed. Use it for launches, sales, or seasonal announcements.
+   With it off, the normal announcement runs everywhere.
 
-   To go back to the normal announcement everywhere, set this to
-   false. Nothing else needs to change — the previous behaviour is
-   still here, untouched, in <StandardAnnouncement>. Layout.jsx
-   imports this flag so the nav spacing follows automatically.
+   To run a new campaign:
+     1. Drop the artwork in public/images/
+     2. Point `src` at it and rewrite `alt` to describe it
+     3. Give `id` a NEW value
+     4. Set enabled: true
+
+   Step 3 is the one that bites. Dismissals are stored against the id,
+   so a new id shows the poster again to everyone who closed the last
+   one. Reuse an old id and returning visitors never see the new
+   poster — the campaign would run to new visitors only.
+
+   `alt` is not decoration: everything the artwork says should be in
+   there, or the announcement does not exist for screen readers.
+
+   Layout.jsx reads POSTER_ACTIVE so the nav spacing follows.
    ───────────────────────────────────────────────────────────── */
-export const LAUNCH_POSTER = true;
+export const POSTER = {
+  enabled: false,
+  id: 'launch-2026',
+  src: '/images/launch-poster.png',
+  alt: 'Welcome to the official launch of All Things Happening Co. Summer and Fall 2026 booking now open — reserve your date today. Pittsburgh and 50-mile radius. Instagram: allthingshappeningco. Email: allthingshappeningco@gmail.com.',
+};
 
-const POSTER_SRC = '/images/launch-poster.png';
-// Deliberately a different key from BAR_KEY: visitors who already
-// dismissed the old announcement should still see the launch poster.
-const POSTER_KEY = 'ath_launch_poster_dismissed';
+export const POSTER_ACTIVE = POSTER.enabled;
+
+// Scoped to the poster id so each campaign is dismissed independently.
+const POSTER_KEY = `ath_poster_${POSTER.id}_dismissed`;
 
 const BAR_KEY = 'ath_bar_dismissed';
 const FOLD_AT = 60;
 const MOBILE_AT = 768;
 
 export default function AnnouncementBar({ onDismiss }) {
-  return LAUNCH_POSTER
-    ? <LaunchPoster onDismiss={onDismiss} />
+  return POSTER_ACTIVE
+    ? <PosterAnnouncement onDismiss={onDismiss} />
     : <StandardAnnouncement onDismiss={onDismiss} />;
 }
 
-/* ── Launch-day poster pop-up (mobile + desktop) ── */
-function LaunchPoster({ onDismiss }) {
+/* ── Poster pop-up (mobile + desktop) ── */
+function PosterAnnouncement({ onDismiss }) {
   // Start hidden so returning visitors never get a flash of the poster
   // before localStorage is read.
   const [dismissed, setDismissed] = useState(true);
@@ -70,10 +87,8 @@ function LaunchPoster({ onDismiss }) {
         <button className="launch-close" onClick={dismiss} aria-label="Close announcement">✕</button>
         <img
           className="launch-poster"
-          src={POSTER_SRC}
-          /* All the poster's information also lives here, since it is
-             otherwise locked inside the image for screen readers. */
-          alt="Welcome to the official launch of All Things Happening Co. Summer and Fall 2026 booking now open — reserve your date today. Pittsburgh and 50-mile radius. Instagram: allthingshappeningco. Email: allthingshappeningco@gmail.com."
+          src={POSTER.src}
+          alt={POSTER.alt}
         />
         <button className="btn-solid launch-enter" onClick={dismiss}>Continue to Site</button>
       </div>

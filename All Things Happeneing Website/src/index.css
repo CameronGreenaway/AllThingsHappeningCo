@@ -101,7 +101,7 @@ img { display: block; max-width: 100%; }
 }
 
 /* ── LAUNCH POSTER POP-UP (temporary — shown on every breakpoint) ──
-   Paired with the LAUNCH_POSTER flag in AnnouncementBar.jsx. */
+   Paired with the POSTER config in AnnouncementBar.jsx. */
 .launch-overlay {
   position: fixed; inset: 0; z-index: 900;
   background: rgba(36,53,48,0.72);
