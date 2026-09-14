@@ -66,6 +66,8 @@ export function payableOptions(service) {
       priceLabel: o.price,
       amount: parsePrice(o.price),
       dayRate: parseDayRate(o.price),
+      styles: o.styles || null,
+      styleLabel: o.styleLabel || 'Style',
     }))
     .filter(o => o.amount !== null || o.dayRate !== null);
 }
@@ -101,6 +103,14 @@ export function buildQuote(itemNames, selections, shipZip) {
       continue;
     }
 
+    if (chosen.styles?.length && !sel.style) {
+      blockers.push({
+        kind: 'option',
+        text: `Choose a ${chosen.styleLabel.toLowerCase()} for ${service.name}`,
+      });
+      continue;
+    }
+
     if (PER_DAY_SERVICES.includes(service.id)) {
       const qty = Math.max(1, parseInt(sel.qty, 10) || 1);
       const days = Math.max(1, parseInt(sel.days, 10) || 1);
@@ -121,7 +131,7 @@ export function buildQuote(itemNames, selections, shipZip) {
     const plainPrice = /^\s*\$\s*[\d,]+(\.\d{2})?\s*$/.test(chosen.priceLabel);
     lines.push({
       key: service.id,
-      label: `${service.name} — ${chosen.label}`,
+      label: `${service.name} — ${chosen.label}${sel.style ? ` (${sel.style})` : ''}`,
       detail: plainPrice ? '' : chosen.priceLabel,
       amount: chosen.amount,
       payInFull: PAY_IN_FULL_OPTIONS.includes(chosen.label),

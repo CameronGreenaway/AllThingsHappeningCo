@@ -2,6 +2,19 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ImagePlaceholder from './ImagePlaceholder';
 
+/* Collects packages into their `group` buckets while preserving the order
+   they are declared in, so the data file controls how the modal reads. */
+function groupPackages(packages = []) {
+  const groups = [];
+  for (const pkg of packages) {
+    const key = pkg.group || '';
+    let bucket = groups.find(g => g.key === key);
+    if (!bucket) { bucket = { key, items: [] }; groups.push(bucket); }
+    bucket.items.push(pkg);
+  }
+  return groups;
+}
+
 export default function RentalModal({ service, onClose }) {
   const open = !!service;
   const [zoomed, setZoomed] = useState(null);
@@ -93,26 +106,45 @@ export default function RentalModal({ service, onClose }) {
               {service.packages && service.packages.length > 0 ? (
                 <>
                   <div className="modal-section-head">Package Options</div>
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1.5rem', marginBottom: '2rem' }}>
-                    {service.packages.map((pkg) => (
-                      <div key={pkg.id} style={{ border: '1px solid rgba(130,150,114,0.2)', padding: '1.5rem', background: 'rgba(130,150,114,0.02)' }}>
-                        <div style={{ fontSize: '1.1rem', fontWeight: 600, marginBottom: '0.5rem', color: 'var(--text)' }}>{pkg.name}</div>
-                        <div style={{ fontSize: '1.3rem', fontWeight: 700, color: 'var(--sage)', marginBottom: '1rem' }}>{pkg.price}</div>
-                        <ul style={{ fontSize: '0.85rem', color: 'var(--text-muted)', lineHeight: 1.6, listStyle: 'none', padding: 0, marginBottom: '0.8rem' }}>
-                          {pkg.items.map((item, i) => (
-                            <li key={i} style={{ marginBottom: '0.4rem' }}>
-                              <span style={{ color: 'var(--sage)' }}>✓</span> {item}
-                            </li>
-                          ))}
-                        </ul>
-                        {pkg.note && (
-                          <p style={{ fontSize: '0.8rem', fontStyle: 'italic', color: 'var(--text-muted)', marginTop: '0.8rem', paddingTop: '0.8rem', borderTop: '1px solid rgba(130,150,114,0.1)' }}>
-                            {pkg.note}
-                          </p>
-                        )}
+                  {/* Grouped by what is actually being rented, so a listing
+                      covering several products reads as a short menu of
+                      choices rather than one long run of similar cards.
+                      Packages with no `group` fall into a single unlabelled
+                      block, which is how every other listing still renders. */}
+                  {groupPackages(service.packages).map(group => (
+                    <div key={group.key || 'ungrouped'}>
+                      {group.key && <div className="pkg-group-head">{group.key}</div>}
+                      <div className="pkg-grid">
+                        {group.items.map((pkg) => (
+                          <div key={pkg.id} className="pkg-card">
+                            <div className="pkg-name">{pkg.name}</div>
+                            <div className="pkg-price">{pkg.price}</div>
+                            <ul className="pkg-items">
+                              {pkg.items.map((item, i) => {
+                                // An item is either a plain string or
+                                // { text, mark } — `mark: "x"` marks something
+                                // the package deliberately does not include.
+                                const text = typeof item === 'string' ? item : item.text;
+                                const excluded = typeof item !== 'string' && item.mark === 'x';
+                                return (
+                                  <li key={i}>
+                                    <span className="pkg-mark" aria-hidden="true">
+                                      {excluded ? '✗' : '✓'}
+                                    </span>
+                                    <span className="sr-only">
+                                      {excluded ? 'Not included:' : 'Included:'}
+                                    </span>
+                                    {' '}{text}
+                                  </li>
+                                );
+                              })}
+                            </ul>
+                            {pkg.note && <p className="pkg-note">{pkg.note}</p>}
+                          </div>
+                        ))}
                       </div>
-                    ))}
-                  </div>
+                    </div>
+                  ))}
                 </>
               ) : (
                 <>

@@ -491,7 +491,7 @@ export default function Contact() {
                                 className="form-select"
                                 required={canPay}
                                 value={sel.option || ''}
-                                onChange={e => setSelection(svc.id, { option: e.target.value })}
+                                onChange={e => setSelection(svc.id, { option: e.target.value, style: '' })}
                               >
                                 <option value="">Select an option…</option>
                                 {opts.map(o => (
@@ -501,6 +501,29 @@ export default function Contact() {
                                 ))}
                               </select>
                             </div>
+
+                            {(() => {
+                              const picked = opts.find(o => o.id === sel.option);
+                              if (!picked?.styles?.length) return null;
+                              return (
+                                <div className="form-group" style={{ marginTop: '0.8rem' }}>
+                                  <label className="form-label">{picked.styleLabel} *</label>
+                                  <div className="form-select-wrap">
+                                    <select
+                                      className="form-select"
+                                      required={canPay}
+                                      value={sel.style || ''}
+                                      onChange={e => setSelection(svc.id, { style: e.target.value })}
+                                    >
+                                      <option value="">Select a {picked.styleLabel.toLowerCase()}…</option>
+                                      {picked.styles.map(st => (
+                                        <option key={st} value={st}>{st}</option>
+                                      ))}
+                                    </select>
+                                  </div>
+                                </div>
+                              );
+                            })()}
 
                             {perDay && sel.option && (
                               <div className="form-row" style={{ marginTop: '0.8rem' }}>
