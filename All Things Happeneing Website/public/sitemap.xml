@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Hand-maintained: add a line here when you add a route in src/App.jsx.
+     changefreq/priority are omitted because Google ignores them. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://allthingshappeningco.com/</loc></url>
+  <url><loc>https://allthingshappeningco.com/rentals</loc></url>
+  <url><loc>https://allthingshappeningco.com/gallery</loc></url>
+  <url><loc>https://allthingshappeningco.com/about</loc></url>
+  <url><loc>https://allthingshappeningco.com/contact</loc></url>
+  <url><loc>https://allthingshappeningco.com/partners</loc></url>
+  <url><loc>https://allthingshappeningco.com/faq</loc></url>
+  <url><loc>https://allthingshappeningco.com/policies</loc></url>
+</urlset>
